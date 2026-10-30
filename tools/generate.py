@@ -217,17 +217,18 @@ def render_page(slug, title, description, body, active=''):
   <meta property="og:type" content="website"><meta property="og:title" content="{escape(title,quote=True)}">
   <meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:locale" content="es_EC">
   <title>{escape(title)}</title>
+  <link rel="icon" type="image/svg+xml" href="{root}assets/img/freddtech-symbol.svg">
   <link rel="stylesheet" href="{root}assets/css/styles.css">
   <script src="{root}assets/js/site.js" defer></script>
 </head><body><a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header"><div class="container nav-shell"><a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio">
-    <span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Aplicaciones con propósito</span></span></a>
+    <img class="brand-symbol" src="{root}assets/img/freddtech-symbol.svg" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
     <button class="menu-toggle" type="button" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="navegacion" data-menu-toggle>{ic('menu')}</button>
     <nav class="nav-links" id="navegacion" data-main-nav aria-label="Navegación principal">{nav}</nav>
   </div></header>
   <main id="contenido">{body}</main>
   <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-main">
-    <a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio"><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Aplicaciones con propósito</span></span></a>
+    <a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio"><img class="brand-symbol" src="{root}assets/img/freddtech-symbol.svg" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="{root}aplicaciones/">Aplicaciones</a><a href="{root}nosotros/">Sobre FREDDTECH</a><a href="{root}novedades/">Novedades</a></div>
     <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>

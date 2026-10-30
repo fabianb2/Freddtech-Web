@@ -15,3 +15,7 @@
 
 /* Utilidades de espaciado para mantener CSP sin estilos en línea */
 .space-top-17{margin-top:17px}.space-top-19{margin-top:19px}.space-top-25{margin-top:25px}.space-top-27{margin-top:27px}.eyebrow-light{color:#a9c3fc}.detail-headline{margin:17px 0}
+
+/* Identidad Premium Geometric: símbolo vectorial y firma adaptable. */
+.brand-symbol{width:44px;height:44px;flex:none}.brand-caption{letter-spacing:0;text-transform:none;font-size:.63rem}.brand-label{color:var(--ink-deep)}
+@media(max-width:380px){.brand{gap:6px;font-size:1.15rem}.brand-symbol{width:36px;height:36px}.brand-caption{font-size:.56rem}}

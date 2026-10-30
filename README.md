@@ -92,7 +92,7 @@ GitHub permite `Add file > Upload files`, pero cargar toda la estructura desde e
 - **Colores:** `public/assets/css/styles.css`, variables `:root`.
 - **Menú e interacciones:** `public/assets/js/site.js`.
 - **Más aplicaciones:** crea entrada y ficha en el generador, luego regenera.
-- **Logotipo e iconos oficiales:** están **pendientes**. El usuario eligió el concepto n.º 4, **Premium Geometric**, para futura incorporación: F geométrica, azul oscuro y azul corporativo; eslogan «Pequeñas apps. Grandes soluciones.». No se incorpora un diseño definitivo en esta actualización. La cabecera actual es un rótulo tipográfico, no un logotipo definitivo. Las ilustraciones son conceptuales.
+- **Logotipo FREDDTECH:** identidad Premium Geometric incorporada: F geométrica en azul oscuro y azul corporativo, con el eslogan «Pequeñas apps. Grandes soluciones.». Archivos vectoriales transparentes en `public/assets/img/freddtech-symbol.svg` y `freddtech-logo.svg`; símbolo utilizado en cabecera, pie y favicon. Los iconos y capturas oficiales de las aplicaciones siguen pendientes.
 - **Contacto:** correo oficial confirmado: `freddtech26@gmail.com`, presente en Soporte, fichas de aplicaciones y pie de página mediante `mailto:`. El visitante debe enviar el mensaje desde su aplicación o servicio de correo; el sitio no envía mensajes ni simula confirmaciones de envío.
 - **Privacidad:** hay que verificar y enlazar la URL oficial actual de la política de «¿Dónde Quedó?». **No reemplaces una URL registrada en Play Console** sin garantizar continuidad. «¿Cuánto Queda?» necesitará su propia política al definir el tratamiento de datos.
 - **Novedades:** añadir noticias reales con fechas verificadas, no hitos ficticios.
