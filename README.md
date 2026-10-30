@@ -2,7 +2,7 @@
 
 **Pequeñas apps. Grandes soluciones.**
 
-Sitio corporativo estático para FREDDTECH, listo para revisión local y posterior despliegue gratuito en Cloudflare Pages. **No está publicado ni conectado a ninguna cuenta.**
+Sitio corporativo estático para FREDDTECH, listo para revisión local y posterior despliegue gratuito en Cloudflare Pages. Proyecto existente: repositorio `fabianb2/Freddtech-Web` y sitio https://freddtech-web.pages.dev/. Los cambios locales requieren revisión antes de subirlos, pues la integración Git puede publicarlos automáticamente.
 
 ## Incluido
 
@@ -92,8 +92,8 @@ GitHub permite `Add file > Upload files`, pero cargar toda la estructura desde e
 - **Colores:** `public/assets/css/styles.css`, variables `:root`.
 - **Menú e interacciones:** `public/assets/js/site.js`.
 - **Más aplicaciones:** crea entrada y ficha en el generador, luego regenera.
-- **Logotipo e iconos oficiales:** están **pendientes**. La cabecera actual es un rótulo tipográfico, no un logotipo definitivo. Las ilustraciones son conceptuales.
-- **Contacto:** todavía no se conoce un correo corporativo confirmado. Edita el contenido de soporte en el generador cuando se confirme. Para un contacto real, se puede utilizar un enlace `mailto:` sin servidor.
+- **Logotipo e iconos oficiales:** están **pendientes**. El usuario eligió el concepto n.º 4, **Premium Geometric**, para futura incorporación: F geométrica, azul oscuro y azul corporativo; eslogan «Pequeñas apps. Grandes soluciones.». No se incorpora un diseño definitivo en esta actualización. La cabecera actual es un rótulo tipográfico, no un logotipo definitivo. Las ilustraciones son conceptuales.
+- **Contacto:** correo oficial confirmado: `freddtech26@gmail.com`, presente en Soporte, fichas de aplicaciones y pie de página mediante `mailto:`. El visitante debe enviar el mensaje desde su aplicación o servicio de correo; el sitio no envía mensajes ni simula confirmaciones de envío.
 - **Privacidad:** hay que verificar y enlazar la URL oficial actual de la política de «¿Dónde Quedó?». **No reemplaces una URL registrada en Play Console** sin garantizar continuidad. «¿Cuánto Queda?» necesitará su propia política al definir el tratamiento de datos.
 - **Novedades:** añadir noticias reales con fechas verificadas, no hitos ficticios.
 - **Sitemap/canonical:** añadir después de obtener un dominio o subdominio real y definitivo. No se inventan URLs.

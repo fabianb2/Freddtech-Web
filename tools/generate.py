@@ -139,6 +139,7 @@ def app_detail(which):
        <div class="feature-list">{grid}</div></div></section>
       <section class="section"><div class="container content-block"><h2>Disponibilidad y privacidad</h2><p>{extra}</p>
         <p>La documentación de privacidad específica de este producto tendrá su propio espacio oficial. No se publicarán políticas inventadas ni enlaces de descarga ficticios.</p>
+        <p>¿Necesitas ayuda con {name}? Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a>. El enlace abre tu aplicación de correo para que envíes el mensaje.</p>
         {link('Consultar información de privacidad','privacidad/'+('donde-quedo/' if is_box else 'cuanto-queda/'),'btn btn-secondary','arrow-right')}
       </div></section>'''
 
@@ -157,16 +158,16 @@ def support():
     faqs = [
       ('¿Puedo descargar «¿Dónde Quedó?»?', 'Actualmente la aplicación se encuentra en una fase de prueba cerrada en Google Play. Su disponibilidad está limitada a los participantes autorizados.'),
       ('¿«¿Cuánto Queda?» está disponible?', 'No. El proyecto está en planificación/desarrollo; la web lo mostrará como «Próximamente» hasta que exista un lanzamiento real.'),
-      ('¿Cómo solicito una nueva función?', 'Habilitaremos un correo oficial de soporte para recibir propuestas. Esta primera versión evita formularios que no pueden enviar mensajes.'),
-      ('¿Cómo puedo reportar un error?', 'Cuando el canal de contacto oficial esté configurado, podrás describir el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
+      ('¿Cómo solicito una nueva función?', 'Envía tu propuesta a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica a qué aplicación corresponde.'),
+      ('¿Cómo puedo reportar un error?', 'Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica la aplicación, el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
       ('¿Dónde encuentro la política de privacidad?', 'La sección Privacidad incluye un apartado independiente para cada aplicación. Enlazaremos allí los documentos oficiales una vez confirmados.'),
-      ('¿Cómo obtengo ayuda con una compra Plus?', 'Para consultas sobre compras o restauración de beneficios, utiliza el canal de soporte oficial cuando se habilite. Nunca compartas credenciales de Google Play.')
+      ('¿Cómo obtengo ayuda con una compra Plus?', 'Para consultas sobre compras o restauración de beneficios, escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a>. Nunca compartas credenciales de Google Play.')
     ]
     items = ''.join(f'<details class="faq-item"><summary>{q}</summary><p>{a}</p></details>' for q,a in faqs)
     return section_hero('Centro de soporte','Estamos aquí para <span class="text-blue">hacerlo simple.</span>','Consulta respuestas frecuentes y encuentra los canales de asistencia para nuestras aplicaciones.',[('Soporte','soporte/')]) + f'''<section class="section"><div class="container"><div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>Respuestas sin complicaciones.</h2></div>
       <div class="faq-grid">{items}</div></div></section>
-      <section class="section section-warm"><div class="container"><div class="section-head"><span class="eyebrow">Contacta con FREDDTECH</span><h2>¿Necesitas ayuda específica?</h2><p>El canal de soporte oficial está pendiente de configuración. No mostramos un formulario falso ni un correo personal.</p></div>
-      <div class="contact-card"><div><h3>Correo de soporte</h3><p>Pendiente de habilitar · Se configurará al definir una dirección corporativa.</p></div><span class="badge badge-peach">Canal en preparación</span></div>
+      <section class="section section-warm"><div class="container"><div class="section-head"><span class="eyebrow">Contacta con FREDDTECH</span><h2>¿Necesitas ayuda específica?</h2><p>Escríbenos al correo oficial de soporte. El enlace abrirá tu aplicación de correo; revisa y envía el mensaje desde allí. Si no tienes una aplicación configurada, copia la dirección en tu servicio de correo.</p></div>
+      <div class="contact-card"><div><h3>Correo de soporte</h3><p><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a></p></div><a class="btn btn-primary" href="mailto:freddtech26@gmail.com">Escribir un correo</a></div>
       <p class="small space-top-19">Para preparar un reporte, anota el nombre de la app, versión, dispositivo y una descripción del problema. Evita adjuntar datos sensibles.</p></div></section>'''
 
 
@@ -229,7 +230,7 @@ def render_page(slug, title, description, body, active=''):
     <a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio"><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Aplicaciones con propósito</span></span></a>
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="{root}aplicaciones/">Aplicaciones</a><a href="{root}nosotros/">Sobre FREDDTECH</a><a href="{root}novedades/">Novedades</a></div>
-    <div class="footer-col"><h3>Ayuda</h3><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>
+    <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>
     <div class="footer-col"><h3>Legal</h3><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
   </div><div class="footer-bottom"><span>© <span data-year>2026</span> FREDDTECH. Pequeñas apps. Grandes soluciones.</span>
   <span>Hecho para simplificar lo cotidiano.</span></div></div></footer>
