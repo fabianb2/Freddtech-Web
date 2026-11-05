@@ -37,6 +37,10 @@ def section_hero(label, heading, intro, bc=None):
 
 
 def app_visual(which, style="app-visual", caption=True):
+    if which == 'box':
+        cls = 'detail-art' if style == 'detail-art' else 'app-visual mint'
+        cap = '<span class="visual-caption">Icono oficial</span>' if caption and style != 'detail-art' else ''
+        return f'<div class="{cls}" aria-label="Icono oficial de ¿Dónde Quedó?"><div class="app-symbol official-app-symbol"><img src="{{{{ASSET}}}}assets/img/donde-quedo-icon.png" width="512" height="512" alt="Icono de ¿Dónde Quedó?: una caja sonriente sobre fondo azul"></div>{cap}</div>'
     mint = which == 'box'
     icon = 'box' if mint else 'calendar'
     cls = 'mint' if mint else 'peach'
@@ -48,7 +52,7 @@ def app_visual(which, style="app-visual", caption=True):
 
 def app_card(which):
     if which == 'box':
-        name, status, kind, quote, desc, url = '¿Dónde Quedó?', 'Prueba cerrada en Google Play', 'blue', 'Menos buscar, más vivir.', 'Recuerda dónde guardaste tus objetos y encuentra cada cosa cuando la necesites.', 'aplicaciones/donde-quedo/'
+        name, status, kind, quote, desc, url = '¿Dónde Quedó?', 'En producción en Google Play', 'blue', 'Menos buscar, más vivir.', 'Recuerda dónde guardaste tus objetos y encuentra cada cosa cuando la necesites.', 'aplicaciones/donde-quedo/'
     else:
         name, status, kind, quote, desc, url = '¿Cuánto Queda?', 'En planificación', 'peach', 'Menos desperdicio, más ahorro.', 'Organiza productos, revisa fechas de caducidad y recibe alertas antes de su vencimiento.', 'aplicaciones/cuanto-queda/'
     return f'''<article class="app-card">{app_visual(which)}<div class="card-content">{badge(status,kind)}<h3>{name}</h3><p>{desc}</p>
@@ -107,7 +111,7 @@ def home():
 
 def applications():
     return section_hero('Nuestras aplicaciones','Soluciones pequeñas.<br><span class="text-blue">Impacto cotidiano.</span>','Conoce las aplicaciones FREDDTECH y descubre en qué etapa se encuentra cada una.',[('Aplicaciones','aplicaciones/')]) + f'''<section class="section"><div class="container"><div class="app-grid">{app_card('box')}{app_card('calendar')}</div>
-      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» está en prueba cerrada en Google Play. «¿Cuánto Queda?» continúa en planificación. No ofrecemos descargas públicas que aún no existen.</div>
+      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» está en producción en Google Play. «¿Cuánto Queda?» continúa en planificación.</div>
     </div></section>'''
 
 
@@ -116,7 +120,7 @@ def app_detail(which):
     name = '¿Dónde Quedó?' if is_box else '¿Cuánto Queda?'
     quote = 'Menos buscar, más vivir.' if is_box else 'Menos desperdicio, más ahorro.'
     summary = 'Una aplicación Android para recordar dónde guardaste tus objetos y encontrarlos fácilmente.' if is_box else 'Una propuesta de aplicación Android para registrar productos, controlar fechas de caducidad y recibir recordatorios antes del vencimiento.'
-    status = badge('Prueba cerrada en Google Play' if is_box else 'En planificación / desarrollo','blue' if is_box else 'peach')
+    status = badge('En producción en Google Play' if is_box else 'En planificación / desarrollo','blue' if is_box else 'peach')
     feat = [
       ('Registro de objetos','Organiza la información sobre las cosas que deseas localizar.','box'),
       ('Ubicación de guardado','Recuerda el lugar donde dejaste cada objeto.','search'),
@@ -129,10 +133,10 @@ def app_detail(which):
       ('Menos desperdicio','Una ayuda para aprovechar mejor lo que ya tienes.','heart')
     ]
     grid = ''.join(f'<article class="feature"><span class="mini-icon">{ic(icon)}</span><h3>{title}</h3><p>{desc}</p></article>' for title,desc,icon in feat)
-    extra = ('La aplicación se encuentra en prueba cerrada. El acceso depende de la participación autorizada en Google Play; por ahora no existe un botón de descarga pública.' if is_box else 'Las funciones descritas forman parte del concepto previsto y pueden cambiar durante el desarrollo. Todavía no existe una versión pública disponible.')
+    extra = ('La aplicación se encuentra en producción en Google Play. Para consultas sobre disponibilidad, contacta con nuestro equipo de soporte.' if is_box else 'Las funciones descritas forman parte del concepto previsto y pueden cambiar durante el desarrollo. Todavía no existe una versión pública disponible.')
     return section_hero('Aplicación FREDDTECH',name,summary,[('Aplicaciones','aplicaciones/'),(name,'aplicaciones/'+('donde-quedo/' if is_box else 'cuanto-queda/'))]) + f'''<section class="section"><div class="container detail-grid">{app_visual(which,style='detail-art')}
       <div>{status}<h2 class="detail-headline">{quote}</h2><p>{summary}</p><p>{extra}</p>
-        <div class="fine-note"><strong>Recursos oficiales:</strong> espacio reservado para icono y capturas reales, que se añadirán cuando sean proporcionados.</div>
+        <div class="fine-note"><strong>Recursos oficiales:</strong> {'Icono oficial de la aplicación. Las capturas se añadirán cuando estén disponibles.' if is_box else 'Espacio reservado para icono y capturas reales, que se añadirán cuando sean proporcionados.'}</div>
       </div></div></section>
       <section class="section section-warm"><div class="container"><div class="section-head"><span class="eyebrow">Cómo te ayuda</span><h2>{'Todo más fácil de encontrar.' if is_box else 'Lo importante, antes de vencer.'}</h2>
        <p>{'Conoce las funciones y capacidades de la aplicación.' if is_box else 'Estas son las principales funciones previstas para el producto.'}</p></div>
@@ -156,7 +160,7 @@ def about():
 
 def support():
     faqs = [
-      ('¿Puedo descargar «¿Dónde Quedó?»?', 'Actualmente la aplicación se encuentra en una fase de prueba cerrada en Google Play. Su disponibilidad está limitada a los participantes autorizados.'),
+      ('¿Puedo descargar «¿Dónde Quedó?»?', 'La aplicación ya está en producción en Google Play. Para consultas sobre disponibilidad en tu dispositivo o región, escribe a freddtech26@gmail.com.'),
       ('¿«¿Cuánto Queda?» está disponible?', 'No. El proyecto está en planificación/desarrollo; la web lo mostrará como «Próximamente» hasta que exista un lanzamiento real.'),
       ('¿Cómo solicito una nueva función?', 'Envía tu propuesta a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica a qué aplicación corresponde.'),
       ('¿Cómo puedo reportar un error?', 'Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica la aplicación, el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
@@ -173,7 +177,7 @@ def support():
 
 def privacy():
     return section_hero('Privacidad y documentación','Información clara.<br><span class="text-blue">Confianza real.</span>','Cada aplicación contará con su documentación de privacidad individual, publicada solo cuando sus textos y enlaces oficiales estén confirmados.',[('Privacidad','privacidad/')]) + f'''<section class="section"><div class="container"><div class="section-head"><span class="eyebrow">Documentos por aplicación</span><h2>Elige una aplicación.</h2></div>
-      <div class="policy-grid"><article class="policy-card">{badge('Prueba cerrada','blue')}<h3 class="space-top-17">¿Dónde Quedó?</h3><p>Área reservada para la política oficial de privacidad de «¿Dónde Quedó?». Este sitio no sustituye el documento legal publicado para la app.</p>{link('Ver apartado de privacidad','privacidad/donde-quedo/','btn btn-secondary','arrow-right')}</article>
+      <div class="policy-grid"><article class="policy-card">{badge('En producción','blue')}<h3 class="space-top-17">¿Dónde Quedó?</h3><p>Área reservada para la política oficial de privacidad de «¿Dónde Quedó?». Este sitio no sustituye el documento legal publicado para la app.</p>{link('Ver apartado de privacidad','privacidad/donde-quedo/','btn btn-secondary','arrow-right')}</article>
       <article class="policy-card">{badge('En planificación','peach')}<h3 class="space-top-17">¿Cuánto Queda?</h3><p>Espacio para la futura política de privacidad, que dependerá de las funciones y tratamientos de datos definitivos del producto.</p>{link('Ver apartado de privacidad','privacidad/cuanto-queda/','btn btn-secondary','arrow-right')}</article></div>
       <div class="status-info page-bottom"><strong>Importante:</strong> las secciones informativas pendientes no constituyen una política de privacidad legal. Antes de publicar un documento definitivo, verifica su contenido y enlace oficial.</div>
     </div></section>'''
@@ -193,7 +197,7 @@ def news():
     return section_hero('Novedades','Ideas que avanzan.<br><span class="text-blue">Apps que evolucionan.</span>','Un espacio para comunicar futuros lanzamientos, mejoras y noticias reales de nuestras aplicaciones.',[('Novedades','novedades/')]) + f'''<section class="section"><div class="container"><div class="news-list">
        <article class="news-card"><span class="kicker">Sitio web · En preparación</span><h3>Un nuevo hogar para FREDDTECH</h3><p>Esta primera versión reúne nuestras aplicaciones, filosofía, soporte y secciones de documentación en una sola experiencia.</p></article>
        <article class="news-card"><span class="kicker">Aplicación · En planificación</span><h3>¿Cuánto Queda?</h3><p>Un concepto para registrar productos, seguir fechas de caducidad y recibir avisos útiles antes de su vencimiento.</p></article>
-       <article class="news-card"><span class="kicker">Aplicación · Prueba cerrada</span><h3>¿Dónde Quedó?</h3><p>La app Android que ayuda a recordar dónde se guardaron los objetos continúa en la fase de prueba cerrada informada.</p></article>
+       <article class="news-card"><span class="kicker">Aplicación · En producción</span><h3>¿Dónde Quedó?</h3><p>La app Android que ayuda a recordar dónde se guardaron los objetos ya está en producción en Google Play.</p></article>
        <article class="news-card"><span class="kicker">Próximas publicaciones</span><h3>Actualizaciones verificadas</h3><p>Publicaremos fechas y enlaces solo cuando existan anuncios oficiales confirmados. No se muestran cifras de usuarios ni estadísticas inventadas.</p></article>
       </div></div></section>'''
 
@@ -247,10 +251,10 @@ def main():
     pages=[
        ('','FREDDTECH — Pequeñas apps. Grandes soluciones.','FREDDTECH desarrolla aplicaciones Android sencillas que resuelven problemas cotidianos.', home(),'home'),
        ('aplicaciones','Aplicaciones Android | FREDDTECH','Explora las aplicaciones Android de FREDDTECH y sus estados de desarrollo.', applications(),'apps'),
-       ('aplicaciones/donde-quedo','¿Dónde Quedó? | FREDDTECH','¿Dónde Quedó? te ayuda a recordar dónde guardaste tus objetos. App en prueba cerrada.', app_detail('box'),'apps'),
+       ('aplicaciones/donde-quedo','¿Dónde Quedó? | FREDDTECH','¿Dónde Quedó? te ayuda a recordar dónde guardaste tus objetos. App en producción en Google Play.', app_detail('box'),'apps'),
        ('aplicaciones/cuanto-queda','¿Cuánto Queda? | FREDDTECH','¿Cuánto Queda? es una app en planificación para fechas de caducidad y alertas.', app_detail('calendar'),'apps'),
        ('nosotros','Sobre FREDDTECH | Aplicaciones con propósito','Conoce la filosofía de FREDDTECH: aplicaciones Android útiles, simples y confiables.', about(),'about'),
-       ('soporte','Soporte FREDDTECH | Ayuda y preguntas frecuentes','Encuentra respuestas sobre aplicaciones FREDDTECH, pruebas cerradas y soporte.', support(),'support'),
+       ('soporte','Soporte FREDDTECH | Ayuda y preguntas frecuentes','Encuentra respuestas sobre aplicaciones FREDDTECH, disponibilidad y soporte.', support(),'support'),
        ('privacidad','Privacidad y documentación | FREDDTECH','Secciones independientes para la documentación de privacidad de cada app FREDDTECH.', privacy(),''),
        ('privacidad/donde-quedo','Privacidad de ¿Dónde Quedó? | FREDDTECH','Área informativa para enlazar la política oficial de privacidad de ¿Dónde Quedó?.', privacy_app('box'),''),
        ('privacidad/cuanto-queda','Privacidad de ¿Cuánto Queda? | FREDDTECH','Área informativa de privacidad para ¿Cuánto Queda?, en desarrollo.', privacy_app('calendar'),''),

@@ -19,3 +19,5 @@
 /* Identidad Premium Geometric: símbolo vectorial y firma adaptable. */
 .brand-symbol{width:44px;height:44px;flex:none}.brand-caption{letter-spacing:0;text-transform:none;font-size:.63rem}.brand-label{color:var(--ink-deep)}
 @media(max-width:380px){.brand{gap:6px;font-size:1.15rem}.brand-symbol{width:36px;height:36px}.brand-caption{font-size:.56rem}}
+
+.app-symbol.official-app-symbol{overflow:hidden;padding:0;transform:none;background:#245ddb}.official-app-symbol img{display:block;width:100%;height:100%;object-fit:contain}
