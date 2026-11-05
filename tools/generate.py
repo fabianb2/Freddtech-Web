@@ -7,6 +7,7 @@ from html import escape
 ROOT = Path(__file__).resolve().parent.parent / "public"
 
 
+
 def ic(name: str) -> str:
     return f'<svg class="icon" aria-hidden="true"><use href="{{{{ASSET}}}}assets/img/icons.svg#{escape(name)}"></use></svg>'
 
@@ -91,6 +92,7 @@ def home():
       <div class="app-grid">{app_card('box')}{app_card('calendar')}</div>
       <div class="space-top-27">{link('Conocer todas las aplicaciones','aplicaciones/','btn btn-plain','arrow-right')}</div>
     </div></section>
+    <!-- Publicidad prevista: un bloque display después del catálogo. Sin carga hasta completar configuración en AdSense. -->
     <section class="section band"><div class="container band-grid"><div><span class="eyebrow eyebrow-light">02 / Nuestro enfoque</span>
       <h2>La tecnología debería ayudarte, no complicarte.</h2>
       <p>En FREDDTECH creemos que la mejor aplicación no es la que más funciones tiene, sino la que resuelve bien lo que necesitas.</p>
@@ -176,11 +178,30 @@ def support():
 
 
 def privacy():
-    return section_hero('Privacidad y documentación','Información clara.<br><span class="text-blue">Confianza real.</span>','Cada aplicación contará con su documentación de privacidad individual, publicada solo cuando sus textos y enlaces oficiales estén confirmados.',[('Privacidad','privacidad/')]) + f'''<section class="section"><div class="container"><div class="section-head"><span class="eyebrow">Documentos por aplicación</span><h2>Elige una aplicación.</h2></div>
+    return section_hero('Privacidad y documentación','Información clara.<br><span class="text-blue">Confianza real.</span>','Cada aplicación contará con su documentación de privacidad individual, publicada solo cuando sus textos y enlaces oficiales estén confirmados.',[('Privacidad','privacidad/')]) + f'''<section class="section"><div class="container"><div class="section-head"><span class="eyebrow">Documentos por aplicación</span><h2>Privacidad de la web y las aplicaciones.</h2><p>Consulta cómo tratamos la información al visitar este sitio.</p>{link('Privacidad y cookies de la web','privacidad/web/','btn btn-primary','arrow-right')}</div>
       <div class="policy-grid"><article class="policy-card">{badge('En producción','blue')}<h3 class="space-top-17">¿Dónde Quedó?</h3><p>Área reservada para la política oficial de privacidad de «¿Dónde Quedó?». Este sitio no sustituye el documento legal publicado para la app.</p>{link('Ver apartado de privacidad','privacidad/donde-quedo/','btn btn-secondary','arrow-right')}</article>
       <article class="policy-card">{badge('En planificación','peach')}<h3 class="space-top-17">¿Cuánto Queda?</h3><p>Espacio para la futura política de privacidad, que dependerá de las funciones y tratamientos de datos definitivos del producto.</p>{link('Ver apartado de privacidad','privacidad/cuanto-queda/','btn btn-secondary','arrow-right')}</article></div>
       <div class="status-info page-bottom"><strong>Importante:</strong> las secciones informativas pendientes no constituyen una política de privacidad legal. Antes de publicar un documento definitivo, verifica su contenido y enlace oficial.</div>
     </div></section>'''
+
+
+
+def privacy_web():
+    return section_hero('Privacidad de FREDDTECH WEB','Tu privacidad, <span class="text-blue">con claridad.</span>','Información sobre la navegación en este sitio, el contacto de soporte y la futura publicidad.',[('Privacidad','privacidad/'),('Privacidad de la web','privacidad/web/')]) + '''<section class="section"><div class="container content-block">
+      <p class="small">Última actualización: 5 de noviembre de 2026.</p>
+      <h2>Quién gestiona este sitio</h2><p>FREDDTECH publica información sobre sus aplicaciones en freddtech-web.pages.dev. Para consultas sobre privacidad o soporte, escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a>.</p>
+      <h2>Información al navegar</h2><p>La web no tiene registro de usuarios, compras ni formularios de contacto. Actualmente no incorpora Google Analytics ni carga scripts publicitarios. La etiqueta de verificación de AdSense y el archivo ads.txt identifican nuestra cuenta de editor; por sí solos no muestran anuncios ni instalan cookies.</p>
+      <p>Cloudflare Pages aloja y entrega el sitio. Al solicitar una página, su infraestructura procesa datos técnicos como la dirección IP, la URL solicitada y datos del navegador para entregar el contenido y proteger el servicio. Consulta la <a href="https://www.cloudflare.com/privacypolicy/">política de privacidad de Cloudflare</a> para conocer su tratamiento de datos.</p>
+      <h2>Cuando nos escribes</h2><p>Los enlaces de correo abren tu aplicación o servicio de correo. Si envías un mensaje, recibimos la dirección del remitente y la información que incluyas para responder a tu consulta. El servicio de correo utilizado es Gmail, de Google. No envíes contraseñas, información de pago ni otros datos sensibles.</p>
+      <p>Conservamos los mensajes mientras sean necesarios para atender la consulta y sus seguimientos o cumplir obligaciones aplicables. Puedes solicitar su eliminación escribiendo al mismo correo; atenderemos la solicitud en la medida que corresponda.</p>
+      <h2>Publicidad y cookies</h2><p>Hemos solicitado la incorporación de este sitio a Google AdSense. La publicidad aún no está activada. Antes de ponerla en funcionamiento, configuraremos los controles de consentimiento y actualizaremos esta información conforme a los servicios habilitados.</p>
+      <p>Al activarse, Google y otros proveedores publicitarios podrán utilizar cookies o almacenamiento similar para servir y medir anuncios, prevenir fraude y, cuando exista el consentimiento correspondiente, personalizar la publicidad a partir de visitas a este y otros sitios. Estos servicios pueden procesar identificadores, dirección IP, información del navegador e interacciones con anuncios.</p>
+      <p>Puedes conocer <a href="https://policies.google.com/technologies/partner-sites?hl=es">cómo usa Google los datos de sitios asociados</a>, consultar su <a href="https://policies.google.com/privacy?hl=es">política de privacidad</a> y gestionar la personalización en <a href="https://myadcenter.google.com/">Mi centro de anuncios</a>. También puedes gestionar las cookies desde tu navegador.</p>
+      <h2>Tus opciones y solicitudes</h2><p>Cuando se active la publicidad, los visitantes a quienes corresponda verán el mensaje de consentimiento de Google y podrán aceptar, rechazar o gestionar sus opciones. El acceso para cambiar esa decisión estará disponible con el mensaje publicado. En este momento no hay un panel de consentimiento publicitario activo porque no se cargan anuncios.</p>
+      <p>Para solicitar acceso, corrección o eliminación de información que nos hayas enviado, o plantear una consulta sobre su uso, contacta con freddtech26@gmail.com. Revisaremos tu solicitud y los derechos que correspondan según la normativa aplicable.</p>
+      <h2>Enlaces y aplicaciones</h2><p>Los servicios externos tienen sus propias políticas. Esta información se refiere al sitio web; las aplicaciones Android tienen su documentación independiente, accesible desde la sección Privacidad. Las condiciones de una aplicación no se sustituyen por esta página.</p>
+      <h2>Cambios</h2><p>Actualizaremos esta página cuando cambien los servicios o el tratamiento de información, indicando la fecha de modificación.</p>
+      </div></section>'''
 
 
 def privacy_app(which):
@@ -237,7 +258,7 @@ def render_page(slug, title, description, body, active=''):
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="{root}aplicaciones/">Aplicaciones</a><a href="{root}nosotros/">Sobre FREDDTECH</a><a href="{root}novedades/">Novedades</a></div>
     <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>
-    <div class="footer-col"><h3>Legal</h3><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
+    <div class="footer-col"><h3>Legal</h3><a href="{root}privacidad/web/">Privacidad y cookies de la web</a><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
   </div><div class="footer-bottom"><span>© <span data-year>2026</span> FREDDTECH. Pequeñas apps. Grandes soluciones.</span>
   <span>Hecho para simplificar lo cotidiano.</span></div></div></footer>
   </body></html>'''
@@ -257,6 +278,7 @@ def main():
        ('nosotros','Sobre FREDDTECH | Aplicaciones con propósito','Conoce la filosofía de FREDDTECH: aplicaciones Android útiles, simples y confiables.', about(),'about'),
        ('soporte','Soporte FREDDTECH | Ayuda y preguntas frecuentes','Encuentra respuestas sobre aplicaciones FREDDTECH, disponibilidad y soporte.', support(),'support'),
        ('privacidad','Privacidad y documentación | FREDDTECH','Secciones independientes para la documentación de privacidad de cada app FREDDTECH.', privacy(),''),
+       ('privacidad/web','Privacidad y cookies de la web | FREDDTECH','Información sobre navegación, soporte, cookies y preparación de Google AdSense en FREDDTECH WEB.', privacy_web(),''),
        ('privacidad/donde-quedo','Privacidad de ¿Dónde Quedó? | FREDDTECH','Área informativa para enlazar la política oficial de privacidad de ¿Dónde Quedó?.', privacy_app('box'),''),
        ('privacidad/cuanto-queda','Privacidad de ¿Cuánto Queda? | FREDDTECH','Área informativa de privacidad para ¿Cuánto Queda?, en desarrollo.', privacy_app('calendar'),''),
        ('novedades','Novedades y próximos lanzamientos | FREDDTECH','Consulta los estados de desarrollo de las aplicaciones y novedades de FREDDTECH.', news(),'news'),

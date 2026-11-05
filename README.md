@@ -121,3 +121,12 @@ El icono oficial de ¿Dónde Quedó? se conserva en `public/assets/img/donde-que
 ## Verificación de AdSense
 
 Cuenta de editor `ca-pub-1728686227442320`, proporcionada por el propietario. La metaetiqueta `google-adsense-account` se genera dentro de `<head>`. En AdSense seleccionar **Metaetiqueta** para verificar y después solicitar revisión. Esta actualización solo verifica la propiedad; no carga scripts publicitarios ni muestra anuncios.
+
+## Preparación publicitaria — 5 de noviembre de 2026
+
+- Política de privacidad de la web: `public/privacidad/web/index.html`, separada de las apps y enlazada en todos los pies de página.
+- Estrategia elegida: un bloque display adaptable en Inicio después de la sección de aplicaciones. Sin anuncios en Soporte, Privacidad, Términos ni 404; sin superposiciones, intersticiales ni ventanas emergentes. La ubicación se marca como comentario HTML, sin reservar espacio vacío.
+- Aún no se cargan scripts publicitarios. La activación se implementará con el identificador real del bloque y la CMP publicada; no se inventan identificadores ni se simula el consentimiento.
+- Pendiente en la cuenta: Sitios debe indicar Listo; crear y publicar el mensaje de consentimiento en Privacidad y mensajería (consentir, no consentir y gestionar opciones), con enlace a https://freddtech-web.pages.dev/privacidad/web/ y posibilidad de revocar; crear un bloque Display adaptable y obtener su código/identificador. Mantener anuncios automáticos apagados para controlar la ubicación.
+- Con ese código: incorporar la carga de AdSense y una única solicitud del bloque, actualizar la política para describir los anuncios activos y adaptar CSP a las solicitudes verificadas del anuncio y la CMP. Mantener `base-uri`, `object-src`, `frame-ancestors` y restricciones de permisos; no eliminar toda la CSP ni introducir permisos globales sin verificar.
+- Probar consentimiento/rechazo/revocación, ausencia de solicitudes duplicadas, anuncios sin rellenar, bloqueo de publicidad, móvil y escritorio. Confirmar que el contenido se mantiene legible y los enlaces de soporte siguen funcionando. Después activar y verificar en producción.
