@@ -117,3 +117,7 @@ Las revisiones estáticas comprueban existencia de enlaces y archivos, encabezad
 Código inicial de trabajo para FREDDTECH. Esta entrega no modifica ni publica aplicaciones Android, no conecta repositorios ajenos y no instala servicios.
 
 El icono oficial de ¿Dónde Quedó? se conserva en `public/assets/img/donde-quedo-icon.png`, obtenido de los recursos del proyecto Android. Estado de producción confirmado por el propietario el 4 de noviembre de 2026.
+
+## Verificación de AdSense
+
+Cuenta de editor `ca-pub-1728686227442320`, proporcionada por el propietario. La metaetiqueta `google-adsense-account` se genera dentro de `<head>`. En AdSense seleccionar **Metaetiqueta** para verificar y después solicitar revisión. Esta actualización solo verifica la propiedad; no carga scripts publicitarios ni muestra anuncios.

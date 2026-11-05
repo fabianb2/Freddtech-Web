@@ -218,6 +218,7 @@ def render_page(slug, title, description, body, active=''):
   <meta name="theme-color" content="#F9F6F1"><meta name="color-scheme" content="light">
   <meta name="description" content="{escape(description,quote=True)}">
   <meta name="robots" content="index,follow">
+  <meta name="google-adsense-account" content="ca-pub-1728686227442320">
   <meta property="og:type" content="website"><meta property="og:title" content="{escape(title,quote=True)}">
   <meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:locale" content="es_EC">
   <title>{escape(title)}</title>
