@@ -4,6 +4,8 @@ Salida en public/. No publica ni interactúa con cuentas externas.
 """
 from pathlib import Path
 from html import escape
+import hashlib
+import base64
 ROOT = Path(__file__).resolve().parent.parent / "public"
 
 
@@ -92,7 +94,7 @@ def home():
       <div class="app-grid">{app_card('box')}{app_card('calendar')}</div>
       <div class="space-top-27">{link('Conocer todas las aplicaciones','aplicaciones/','btn btn-plain','arrow-right')}</div>
     </div></section>
-    <!-- Publicidad prevista: un bloque display después del catálogo. Sin carga hasta completar configuración en AdSense. -->
+    <aside class="ad-section" aria-label="Publicidad"><div class="container"><p class="ad-label">Publicidad</p><ins class="adsbygoogle" data-ad-client="ca-pub-1728686227442320" data-ad-slot="1959689089" data-ad-format="auto" data-full-width-responsive="true"></ins></div></aside>
     <section class="section band"><div class="container band-grid"><div><span class="eyebrow eyebrow-light">02 / Nuestro enfoque</span>
       <h2>La tecnología debería ayudarte, no complicarte.</h2>
       <p>En FREDDTECH creemos que la mejor aplicación no es la que más funciones tiene, sino la que resuelve bien lo que necesitas.</p>
@@ -190,14 +192,14 @@ def privacy_web():
     return section_hero('Privacidad de FREDDTECH WEB','Tu privacidad, <span class="text-blue">con claridad.</span>','Información sobre la navegación en este sitio, el contacto de soporte y la futura publicidad.',[('Privacidad','privacidad/'),('Privacidad de la web','privacidad/web/')]) + '''<section class="section"><div class="container content-block">
       <p class="small">Última actualización: 5 de noviembre de 2026.</p>
       <h2>Quién gestiona este sitio</h2><p>FREDDTECH publica información sobre sus aplicaciones en freddtech-web.pages.dev. Para consultas sobre privacidad o soporte, escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a>.</p>
-      <h2>Información al navegar</h2><p>La web no tiene registro de usuarios, compras ni formularios de contacto. Actualmente no incorpora Google Analytics ni carga scripts publicitarios. La etiqueta de verificación de AdSense y el archivo ads.txt identifican nuestra cuenta de editor; por sí solos no muestran anuncios ni instalan cookies.</p>
+      <h2>Información al navegar</h2><p>La web no tiene registro de usuarios, compras ni formularios de contacto. No incorpora Google Analytics. La página de Inicio incluye el código de Google AdSense y un bloque publicitario adaptable; su disponibilidad depende de la aprobación y del servicio de Google. La etiqueta de verificación de AdSense y el archivo ads.txt identifican nuestra cuenta de editor; por sí solos no muestran anuncios ni instalan cookies.</p>
       <p>Cloudflare Pages aloja y entrega el sitio. Al solicitar una página, su infraestructura procesa datos técnicos como la dirección IP, la URL solicitada y datos del navegador para entregar el contenido y proteger el servicio. Consulta la <a href="https://www.cloudflare.com/privacypolicy/">política de privacidad de Cloudflare</a> para conocer su tratamiento de datos.</p>
       <h2>Cuando nos escribes</h2><p>Los enlaces de correo abren tu aplicación o servicio de correo. Si envías un mensaje, recibimos la dirección del remitente y la información que incluyas para responder a tu consulta. El servicio de correo utilizado es Gmail, de Google. No envíes contraseñas, información de pago ni otros datos sensibles.</p>
       <p>Conservamos los mensajes mientras sean necesarios para atender la consulta y sus seguimientos o cumplir obligaciones aplicables. Puedes solicitar su eliminación escribiendo al mismo correo; atenderemos la solicitud en la medida que corresponda.</p>
-      <h2>Publicidad y cookies</h2><p>Hemos solicitado la incorporación de este sitio a Google AdSense. La publicidad aún no está activada. Antes de ponerla en funcionamiento, configuraremos los controles de consentimiento y actualizaremos esta información conforme a los servicios habilitados.</p>
-      <p>Al activarse, Google y otros proveedores publicitarios podrán utilizar cookies o almacenamiento similar para servir y medir anuncios, prevenir fraude y, cuando exista el consentimiento correspondiente, personalizar la publicidad a partir de visitas a este y otros sitios. Estos servicios pueden procesar identificadores, dirección IP, información del navegador e interacciones con anuncios.</p>
+      <h2>Publicidad y cookies</h2><p>Este sitio utiliza Google AdSense en Inicio. Hemos publicado un mensaje de consentimiento de Google para los visitantes a quienes corresponda. La integración está instalada; Google determina la disponibilidad de anuncios según la aprobación del sitio, las opciones de privacidad y la disponibilidad publicitaria.</p>
+      <p>Google y sus proveedores publicitarios pueden utilizar cookies o almacenamiento similar para servir y medir anuncios, prevenir fraude y, cuando exista el consentimiento correspondiente, personalizar la publicidad a partir de visitas a este y otros sitios. Estos servicios pueden procesar identificadores, dirección IP, información del navegador e interacciones con anuncios.</p>
       <p>Puedes conocer <a href="https://policies.google.com/technologies/partner-sites?hl=es">cómo usa Google los datos de sitios asociados</a>, consultar su <a href="https://policies.google.com/privacy?hl=es">política de privacidad</a> y gestionar la personalización en <a href="https://myadcenter.google.com/">Mi centro de anuncios</a>. También puedes gestionar las cookies desde tu navegador.</p>
-      <h2>Tus opciones y solicitudes</h2><p>Cuando se active la publicidad, los visitantes a quienes corresponda verán el mensaje de consentimiento de Google y podrán aceptar, rechazar o gestionar sus opciones. El acceso para cambiar esa decisión estará disponible con el mensaje publicado. En este momento no hay un panel de consentimiento publicitario activo porque no se cargan anuncios.</p>
+      <h2>Tus opciones y solicitudes</h2><p>Los visitantes a quienes corresponda verán el mensaje de consentimiento de Google y podrán aceptar, rechazar o gestionar sus opciones. Para cambiar esa decisión, visita <a href="../../#opciones-privacidad">Opciones de privacidad en Inicio</a>: el botón de gestión aparece cuando Google informa que su panel de consentimiento está disponible. Google también puede mostrar su propio enlace de opciones de privacidad. Si bloqueas los servicios de Google, el panel puede no cargarse; puedes gestionar las cookies desde tu navegador o contactarnos.</p>
       <p>Para solicitar acceso, corrección o eliminación de información que nos hayas enviado, o plantear una consulta sobre su uso, contacta con freddtech26@gmail.com. Revisaremos tu solicitud y los derechos que correspondan según la normativa aplicable.</p>
       <h2>Enlaces y aplicaciones</h2><p>Los servicios externos tienen sus propias políticas. Esta información se refiere al sitio web; las aplicaciones Android tienen su documentación independiente, accesible desde la sección Privacidad. Las condiciones de una aplicación no se sustituyen por esta página.</p>
       <h2>Cambios</h2><p>Actualizaremos esta página cuando cambien los servicios o el tratamiento de información, indicando la fecha de modificación.</p>
@@ -232,6 +234,15 @@ def terms():
 def render_page(slug, title, description, body, active=''):
     depth = len([p for p in slug.strip('/').split('/') if p])
     root = '../' * depth or './'
+    normal_policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'"
+    if slug == '':
+        bootstrap = "document.addEventListener('DOMContentLoaded',()=>{for(const src of ['./assets/js/site.js','./assets/js/ads.js']){const s=document.createElement('script');s.src=src;document.head.appendChild(s);}});"
+        digest = base64.b64encode(hashlib.sha256(bootstrap.encode()).digest()).decode()
+        page_policy = f"script-src 'sha256-{digest}' 'strict-dynamic' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; form-action 'none'"
+        page_scripts = f'<script>{bootstrap}</script>'
+    else:
+        page_policy = normal_policy
+        page_scripts = f'<script src="{root}assets/js/site.js" defer></script>'
     nav_entries = [('Inicio','', 'home'),('Aplicaciones','aplicaciones/','apps'),('Nosotros','nosotros/','about'),('Novedades','novedades/','news'),('Soporte','soporte/','support')]
     nav = ''.join(f'<a class="nav-link {"nav-cta" if key=="support" else ""}" href="{root}{path}" {"aria-current=\"page\"" if active == key else ""}>{name}</a>' for name,path,key in nav_entries)
     html = f'''<!doctype html><html lang="es"><head>
@@ -245,7 +256,8 @@ def render_page(slug, title, description, body, active=''):
   <title>{escape(title)}</title>
   <link rel="icon" type="image/svg+xml" href="{root}assets/img/freddtech-symbol.svg?v=curva-1">
   <link rel="stylesheet" href="{root}assets/css/styles.css">
-  <script src="{root}assets/js/site.js" defer></script>
+  <meta http-equiv="Content-Security-Policy" content="{page_policy}">
+  {page_scripts}
 </head><body><a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header"><div class="container nav-shell"><a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio">
     <img class="brand-symbol" src="{root}assets/img/freddtech-symbol.svg?v=curva-1" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
@@ -253,18 +265,20 @@ def render_page(slug, title, description, body, active=''):
     <nav class="nav-links" id="navegacion" data-main-nav aria-label="Navegación principal">{nav}</nav>
   </div></header>
   <main id="contenido">{body}</main>
+  {('<div class="container privacy-options" id="opciones-privacidad"><button class="btn btn-secondary" type="button" data-privacy-options hidden>Gestionar consentimiento</button><a href="./privacidad/web/">Información sobre privacidad y cookies</a></div>' if slug == '' else '')}
   <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-main">
     <a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio"><img class="brand-symbol" src="{root}assets/img/freddtech-symbol.svg?v=curva-1" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="{root}aplicaciones/">Aplicaciones</a><a href="{root}nosotros/">Sobre FREDDTECH</a><a href="{root}novedades/">Novedades</a></div>
     <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>
-    <div class="footer-col"><h3>Legal</h3><a href="{root}privacidad/web/">Privacidad y cookies de la web</a><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
+    <div class="footer-col"><h3>Legal</h3><a href="{root}#opciones-privacidad">Opciones de privacidad</a><a href="{root}privacidad/web/">Privacidad y cookies de la web</a><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
   </div><div class="footer-bottom"><span>© <span data-year>2026</span> FREDDTECH. Pequeñas apps. Grandes soluciones.</span>
   <span>Hecho para simplificar lo cotidiano.</span></div></div></footer>
   </body></html>'''
     html = html.replace('{{ASSET}}', root).replace('{{ROOT}}', root)
     path = ROOT / slug / 'index.html' if slug else ROOT / 'index.html'
     path.parent.mkdir(parents=True,exist_ok=True)
+    html = '\n'.join(line.rstrip() for line in html.splitlines()) + '\n'
     path.write_text(html, encoding='utf-8')
     return path
 
@@ -290,8 +304,12 @@ def main():
     html = (ROOT/'index.html').read_text(encoding='utf-8')
     import re
     html = re.sub(r'<main id="contenido">.*?</main>', '<main id="contenido"><section class="section"><div class="container content-block"><span class="eyebrow">Error 404</span><h1>Página no encontrada.</h1><p>Es posible que el enlace haya cambiado o que la dirección no exista.</p><a class="btn btn-primary" href="./">Volver al inicio</a></div></section></main>', html, flags=re.S)
+    html = re.sub(r'<meta http-equiv="Content-Security-Policy" content="[^"]*">', "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; form-action 'none'\">", html)
+    html = re.sub(r'<script>.*?</script>', '<script src="./assets/js/site.js" defer></script>', html, flags=re.S)
+    html = re.sub(r'<div class="container privacy-options".*?</div>', '', html, flags=re.S)
     html = html.replace('href="./', 'href="/').replace('src="./', 'src="/')
     html = html.replace('<title>FREDDTECH — Pequeñas apps. Grandes soluciones.</title>','<title>Página no encontrada | FREDDTECH</title>').replace('<meta name="robots" content="index,follow">','<meta name="robots" content="noindex,follow">')
+    html = '\n'.join(line.rstrip() for line in html.splitlines()) + '\n'
     (ROOT/'404.html').write_text(html,encoding='utf-8')
 
 if __name__=='__main__':

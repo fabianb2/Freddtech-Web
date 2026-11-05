@@ -130,3 +130,16 @@ Cuenta de editor `ca-pub-1728686227442320`, proporcionada por el propietario. La
 - Pendiente en la cuenta: Sitios debe indicar Listo; crear y publicar el mensaje de consentimiento en Privacidad y mensajería (consentir, no consentir y gestionar opciones), con enlace a https://freddtech-web.pages.dev/privacidad/web/ y posibilidad de revocar; crear un bloque Display adaptable y obtener su código/identificador. Mantener anuncios automáticos apagados para controlar la ubicación.
 - Con ese código: incorporar la carga de AdSense y una única solicitud del bloque, actualizar la política para describir los anuncios activos y adaptar CSP a las solicitudes verificadas del anuncio y la CMP. Mantener `base-uri`, `object-src`, `frame-ancestors` y restricciones de permisos; no eliminar toda la CSP ni introducir permisos globales sin verificar.
 - Probar consentimiento/rechazo/revocación, ausencia de solicitudes duplicadas, anuncios sin rellenar, bloqueo de publicidad, móvil y escritorio. Confirmar que el contenido se mantiene legible y los enlaces de soporte siguen funcionando. Después activar y verificar en producción.
+
+## Integración AdSense instalada — 5 de noviembre de 2026
+
+Esta sección actualiza la preparación anterior. Bloque Display adaptable `1959689089`, editor `ca-pub-1728686227442320`, proporcionados por el propietario. El propietario confirmó mediante captura el mensaje europeo Publicado.
+
+- Un único bloque en Inicio, después de las aplicaciones. No se inserta en otras páginas ni en 404. Mantener anuncios automáticos apagados en la cuenta para conservar el control manual; esa opción no se puede confirmar desde el código.
+- `assets/js/ads.js` carga el código oficial una sola vez, prepara `googlefc.callbackQueue`, solicita el bloque y permite revocar mediante la API cuando está disponible. No simula una CMP ni añade su propio consentimiento. La entrega y decisión de consentimiento las gestiona Google.
+- Oculta el bloque ante error de carga o estado `unfilled`. Reserva altura mientras se solicita para limitar cambios de diseño. No reintenta ni refresca anuncios.
+- `_headers` conserva `base-uri`, `object-src`, `frame-ancestors`, HTTPS y los otros encabezados. Las páginas sin anuncios aplican una CSP restrictiva mediante metaetiqueta. Inicio usa una política de scripts con hash SHA-256 y `strict-dynamic` para el pequeño cargador de confianza; permite los estilos y recursos de anuncios de terceros y `unsafe-eval`, requerido por el soporte CSP de AdSense. No se usa un nonce fijo ni listas de dominios que Google advierte que pueden quedar obsoletas.
+- `check_site.py` verifica los hashes de scripts inline y solo admite el cargador en Inicio. Cambiar el cargador requiere regenerar la política. La página 404 se genera con CSP normal y sin cargador publicitario.
+- La política de privacidad de la web describe la integración instalada. El sitio puede seguir sin mostrar anuncios mientras Google revisa su aprobación. No se ha confirmado la opción de anuncios automáticos ni la entrega de un anuncio real desde la cuenta.
+
+Fuentes técnicas: https://support.google.com/adsense/answer/16283098 y https://developers.google.com/funding-choices/fc-api-docs .

@@ -21,3 +21,6 @@
 @media(max-width:380px){.brand{gap:6px;font-size:1.15rem}.brand-symbol{width:36px;height:36px}.brand-caption{font-size:.56rem}}
 
 .app-symbol.official-app-symbol{overflow:hidden;padding:0;transform:none;background:#245ddb}.official-app-symbol img{display:block;width:100%;height:100%;object-fit:contain}
+
+/* Un bloque separado de controles y sin superposiciones. */
+[hidden]{display:none!important}.ad-section{padding:0 0 64px;overflow:hidden}.ad-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;text-align:center;color:var(--muted);margin:0 0 12px}.adsbygoogle{display:block;min-height:250px}.privacy-options{padding-bottom:28px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.privacy-options>a{font-size:.85rem;text-decoration:underline}

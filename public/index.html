@@ -9,7 +9,8 @@
   <title>FREDDTECH — Pequeñas apps. Grandes soluciones.</title>
   <link rel="icon" type="image/svg+xml" href="./assets/img/freddtech-symbol.svg?v=curva-1">
   <link rel="stylesheet" href="./assets/css/styles.css">
-  <script src="./assets/js/site.js" defer></script>
+  <meta http-equiv="Content-Security-Policy" content="script-src 'sha256-BSpJdiytdw4B3jLXnocILoqywIQI4GkGOEDA9dMs5GQ=' 'strict-dynamic' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; form-action 'none'">
+  <script>document.addEventListener('DOMContentLoaded',()=>{for(const src of ['./assets/js/site.js','./assets/js/ads.js']){const s=document.createElement('script');s.src=src;document.head.appendChild(s);}});</script>
 </head><body><a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header"><div class="container nav-shell"><a class="brand" href="./" aria-label="FREDDTECH, volver al inicio">
     <img class="brand-symbol" src="./assets/img/freddtech-symbol.svg?v=curva-1" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
@@ -45,7 +46,7 @@
       <div class="card-bottom"><strong>Menos desperdicio, más ahorro.</strong><a href="./aplicaciones/cuanto-queda/" class="">Ver detalles <svg class="icon" aria-hidden="true"><use href="./assets/img/icons.svg#arrow-right"></use></svg></a></div></div></article></div>
       <div class="space-top-27"><a href="./aplicaciones/" class="btn btn-plain">Conocer todas las aplicaciones <svg class="icon" aria-hidden="true"><use href="./assets/img/icons.svg#arrow-right"></use></svg></a></div>
     </div></section>
-    <!-- Publicidad prevista: un bloque display después del catálogo. Sin carga hasta completar configuración en AdSense. -->
+    <aside class="ad-section" aria-label="Publicidad"><div class="container"><p class="ad-label">Publicidad</p><ins class="adsbygoogle" data-ad-client="ca-pub-1728686227442320" data-ad-slot="1959689089" data-ad-format="auto" data-full-width-responsive="true"></ins></div></aside>
     <section class="section band"><div class="container band-grid"><div><span class="eyebrow eyebrow-light">02 / Nuestro enfoque</span>
       <h2>La tecnología debería ayudarte, no complicarte.</h2>
       <p>En FREDDTECH creemos que la mejor aplicación no es la que más funciones tiene, sino la que resuelve bien lo que necesitas.</p>
@@ -62,12 +63,13 @@
        <div class="space-top-25"><a href="./novedades/" class="btn btn-plain">Ver novedades <svg class="icon" aria-hidden="true"><use href="./assets/img/icons.svg#arrow-right"></use></svg></a></div></div></section>
     <section class="cta-section"><div class="container"><div class="cta-panel"><div><span class="eyebrow">Hablemos de soluciones</span><h2>¿Tienes una idea o necesitas ayuda?</h2><p>Encuentra respuestas, consulta el estado de nuestras apps y descubre cómo contactar con el equipo.</p></div>
       <a href="./soporte/" class="btn btn-primary">Ir a soporte <svg class="icon" aria-hidden="true"><use href="./assets/img/icons.svg#arrow-right"></use></svg></a></div></div></section></main>
+  <div class="container privacy-options" id="opciones-privacidad"><button class="btn btn-secondary" type="button" data-privacy-options hidden>Gestionar consentimiento</button><a href="./privacidad/web/">Información sobre privacidad y cookies</a></div>
   <footer class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-main">
     <a class="brand" href="./" aria-label="FREDDTECH, volver al inicio"><img class="brand-symbol" src="./assets/img/freddtech-symbol.svg?v=curva-1" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="./aplicaciones/">Aplicaciones</a><a href="./nosotros/">Sobre FREDDTECH</a><a href="./novedades/">Novedades</a></div>
     <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="./soporte/">Centro de soporte</a><a href="./aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="./aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>
-    <div class="footer-col"><h3>Legal</h3><a href="./privacidad/web/">Privacidad y cookies de la web</a><a href="./privacidad/">Privacidad</a><a href="./terminos/">Términos de uso</a></div>
+    <div class="footer-col"><h3>Legal</h3><a href="./#opciones-privacidad">Opciones de privacidad</a><a href="./privacidad/web/">Privacidad y cookies de la web</a><a href="./privacidad/">Privacidad</a><a href="./terminos/">Términos de uso</a></div>
   </div><div class="footer-bottom"><span>© <span data-year>2026</span> FREDDTECH. Pequeñas apps. Grandes soluciones.</span>
   <span>Hecho para simplificar lo cotidiano.</span></div></div></footer>
   </body></html>
