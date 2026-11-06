@@ -7,6 +7,11 @@ from html import escape
 import hashlib
 import base64
 ROOT = Path(__file__).resolve().parent.parent / "public"
+PLAY_URL = "https://play.google.com/store/apps/details?id=com.freddtech.dondequedo"
+
+def play_button():
+    return f'<a href="{PLAY_URL}" class="btn btn-primary">Descargar en Google Play</a>'
+
 
 
 
@@ -59,7 +64,7 @@ def app_card(which):
     else:
         name, status, kind, quote, desc, url = '¿Cuánto Queda?', 'En planificación', 'peach', 'Menos desperdicio, más ahorro.', 'Organiza productos, revisa fechas de caducidad y recibe alertas antes de su vencimiento.', 'aplicaciones/cuanto-queda/'
     return f'''<article class="app-card">{app_visual(which)}<div class="card-content">{badge(status,kind)}<h3>{name}</h3><p>{desc}</p>
-      <div class="card-bottom"><strong>{quote}</strong>{link('Ver detalles',url,'','arrow-right')}</div></div></article>'''
+      <div class="card-bottom"><strong>{quote}</strong>{link('Ver detalles',url,'','arrow-right')}</div>{play_button() if which == 'box' else ''}</div></article>'''
 
 
 def foot_note():
@@ -139,7 +144,7 @@ def app_detail(which):
     grid = ''.join(f'<article class="feature"><span class="mini-icon">{ic(icon)}</span><h3>{title}</h3><p>{desc}</p></article>' for title,desc,icon in feat)
     extra = ('La aplicación se encuentra en producción en Google Play. Para consultas sobre disponibilidad, contacta con nuestro equipo de soporte.' if is_box else 'Las funciones descritas forman parte del concepto previsto y pueden cambiar durante el desarrollo. Todavía no existe una versión pública disponible.')
     return section_hero('Aplicación FREDDTECH',name,summary,[('Aplicaciones','aplicaciones/'),(name,'aplicaciones/'+('donde-quedo/' if is_box else 'cuanto-queda/'))]) + f'''<section class="section"><div class="container detail-grid">{app_visual(which,style='detail-art')}
-      <div>{status}<h2 class="detail-headline">{quote}</h2><p>{summary}</p><p>{extra}</p>
+      <div>{status}<h2 class="detail-headline">{quote}</h2><p>{summary}</p><p>{extra}</p>{play_button() if is_box else ""}
         <div class="fine-note"><strong>Recursos oficiales:</strong> {'Icono oficial de la aplicación. Las capturas se añadirán cuando estén disponibles.' if is_box else 'Espacio reservado para icono y capturas reales, que se añadirán cuando sean proporcionados.'}</div>
       </div></div></section>
       <section class="section section-warm"><div class="container"><div class="section-head"><span class="eyebrow">Cómo te ayuda</span><h2>{'Todo más fácil de encontrar.' if is_box else 'Lo importante, antes de vencer.'}</h2>
@@ -164,7 +169,7 @@ def about():
 
 def support():
     faqs = [
-      ('¿Puedo descargar «¿Dónde Quedó?»?', 'La aplicación ya está en producción en Google Play. Para consultas sobre disponibilidad en tu dispositivo o región, escribe a freddtech26@gmail.com.'),
+      ('¿Puedo descargar «¿Dónde Quedó?»?', 'Sí. Visita <a href="https://play.google.com/store/apps/details?id=com.freddtech.dondequedo">la ficha de ¿Dónde Quedó? en Google Play</a> para descargarla y consultar la disponibilidad en tu dispositivo o región.'),
       ('¿«¿Cuánto Queda?» está disponible?', 'No. El proyecto está en planificación/desarrollo; la web lo mostrará como «Próximamente» hasta que exista un lanzamiento real.'),
       ('¿Cómo solicito una nueva función?', 'Envía tu propuesta a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica a qué aplicación corresponde.'),
       ('¿Cómo puedo reportar un error?', 'Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica la aplicación, el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
