@@ -7,7 +7,7 @@ Sitio corporativo estático para FREDDTECH, listo para revisión local y posteri
 ## Incluido
 
 - Inicio con diseño responsive y representación visual conceptual (NO son capturas reales de Android).
-- Catálogo y fichas individuales: **¿Dónde Quedó?** (en producción en Google Play) y **¿Cuánto Queda?** (en planificación).
+- Catálogo y fichas individuales: **¿Dónde Quedó?** (disponible en Google Play) y **¿Cuánto Queda?** (en planificación).
 - Sobre FREDDTECH, soporte con FAQ, novedades.
 - Apartados separados para privacidad por app y términos de uso, claramente indicados como **pendientes**, sin inventar documentos legales.
 - Navegación de móvil accesible; enlaces internos relativos para que la web se pueda revisar localmente.
