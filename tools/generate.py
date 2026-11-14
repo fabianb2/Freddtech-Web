@@ -62,12 +62,19 @@ SCREENSHOTS = {'box': ['Tus objetos guardados', 'Guardar un objeto', 'Ajustes de
 def screenshot_gallery(key):
     name = '¿Dónde Quedó?' if key == 'box' else CATALOG[key]['name']
     cards = ''.join(f'<figure class="screenshot-card"><a href="{{{{ASSET}}}}assets/img/screenshots/{key}/{i}.webp" aria-label="Ampliar: {escape(label)} de {escape(name)}"><img src="{{{{ASSET}}}}assets/img/screenshots/{key}/{i}.webp" alt="{escape(name)}: {escape(label)}, presentación de teléfono en 3D" width="900" height="1600" loading="lazy" decoding="async"></a><figcaption>{escape(label)}</figcaption></figure>' for i,label in enumerate(SCREENSHOTS[key],1))
-    return f'<section class="section app-screenshots"><div class="container"><div class="section-head"><span class="eyebrow">Conoce la app</span><h2>{escape(name)} en imágenes</h2><p>Explora sus pantallas en una presentación de teléfono en 3D. Toca una imagen para ampliarla.</p></div><div class="screenshot-grid">{cards}</div><p class="small muted screenshot-note">Imágenes promocionales con datos de ejemplo. La apariencia puede variar según la versión y el dispositivo.</p></div></section>'
+    return f'<section class="section app-screenshots" id="capturas"><div class="container"><div class="section-head"><span class="eyebrow">Conoce la app</span><h2>Un vistazo a la app</h2><p>Conoce cada función. Selecciona una imagen para verla con más detalle.</p></div><div class="screenshot-grid">{cards}</div><p class="small muted screenshot-note">Imágenes promocionales con datos de ejemplo. La apariencia puede variar según la versión y el dispositivo.</p></div></section>'
 
 def catalog_detail(key):
-    app = CATALOG[key]
-    features = ''.join(f'<article class="feature"><h3>{title}</h3><p>{text}</p></article>' for title,text in app['features'])
-    return section_hero('Aplicación FREDDTECH',app['name'],app['desc'],[('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')]) + f'''<section class="section"><div class="container detail-grid">{catalog_visual(key,'detail-art')}<div>{badge('Prueba cerrada','blue')}<h2>{app['quote']}</h2><p>{app['desc']}</p><p>Esta aplicación se encuentra en prueba cerrada. El acceso está limitado a los participantes autorizados; todavía no se ofrece descarga pública.</p><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a></div></div></section><section class="section section-warm"><div class="container"><div class="section-head"><h2>Cómo te ayuda</h2></div><div class="feature-list">{features}</div></div></section>''' + screenshot_gallery(key)
+    if key == 'box':
+        app = dict(name='¿Dónde Quedó?', slug='donde-quedo', icon='donde-quedo-icon.png', desc='Recuerda dónde guardaste tus objetos y encuentra cada cosa cuando la necesites.', quote='Menos buscar, más vivir.', features=[('Registro de objetos','Guarda el nombre, una foto y los detalles de tus objetos.'),('Ubicación de guardado','Recuerda el lugar donde dejaste cada cosa.'),('Búsqueda sencilla','Consulta tus registros para encontrar lo que necesitas.'),('Recordatorios','Programa avisos para revisar tus objetos.')])
+    else:
+        app = CATALOG[key]
+    state = 'Disponible en Google Play' if key == 'box' else 'Prueba cerrada'
+    action = play_button() if key == 'box' else '<a class="btn btn-primary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a>'
+    availability = 'Consulta la disponibilidad para tu dispositivo y región en Google Play.' if key == 'box' else 'Acceso limitado a participantes autorizados. La descarga pública todavía no está disponible.'
+    features = ''.join(f'<article class="feature"><span class="feature-number">{i:02d}</span><h3>{title}</h3><p>{text}</p></article>' for i,(title,text) in enumerate(app['features'],1))
+    return f'''<section class="app-detail-hero"><div class="container">{breadcrumb([('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')])}<div class="app-detail-intro"><div class="app-detail-copy">{badge(state,'green' if key == 'box' else 'blue')}<h1>{app['name']}</h1><p class="app-detail-tagline">{app['quote']}</p><p class="app-detail-description">{app['desc']}</p><div class="buttons">{action}<a href="#capturas" class="btn btn-secondary">Explorar capturas {ic('arrow-right')}</a></div><p class="app-availability">{availability}</p></div><img class="app-detail-icon" src="{{{{ASSET}}}}assets/img/{app['icon']}" alt="Icono de {app['name']}" width="512" height="512"></div><nav class="app-detail-nav" aria-label="Secciones de la aplicación"><a href="#capturas">Capturas</a><a href="#funciones">Funciones</a><a href="#ayuda-app">Soporte</a></nav></div></section>''' + screenshot_gallery(key) + f'''<section class="section app-features" id="funciones"><div class="container"><div class="section-head"><span class="eyebrow">Pensada para ti</span><h2>Lo que puedes hacer</h2></div><div class="feature-list">{features}</div></div></section><section class="app-help" id="ayuda-app"><div class="container"><div class="contact-card"><div><span class="eyebrow">Estamos para ayudarte</span><h2>¿Tienes alguna consulta?</h2><p>Indica el nombre de la app y cuéntanos cómo podemos ayudarte.</p></div><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">freddtech26@gmail.com {ic('arrow-up-right')}</a></div></div></section>'''
+
 
 def app_visual(which, style="app-visual", caption=True):
     if which in CATALOG:
@@ -155,37 +162,7 @@ def applications():
 
 
 def app_detail(which):
-    is_box = which == 'box'
-    name = '¿Dónde Quedó?' if is_box else '¿Cuánto Queda?'
-    quote = 'Menos buscar, más vivir.' if is_box else 'Menos desperdicio, más ahorro.'
-    summary = 'Una aplicación Android para recordar dónde guardaste tus objetos y encontrarlos fácilmente.' if is_box else 'Una propuesta de aplicación Android para registrar productos, controlar fechas de caducidad y recibir recordatorios antes del vencimiento.'
-    status = badge('Disponible en Google Play' if is_box else 'En planificación / desarrollo','blue' if is_box else 'peach')
-    feat = [
-      ('Registro de objetos','Organiza la información sobre las cosas que deseas localizar.','box'),
-      ('Ubicación de guardado','Recuerda el lugar donde dejaste cada objeto.','search'),
-      ('Información visual','Utiliza referencias visuales cuando estén disponibles en la aplicación.','layers'),
-      ('Búsqueda sencilla','Encuentra los registros que necesitas de forma práctica.','bolt')
-    ] if is_box else [
-      ('Control de productos','Planifica el registro de productos de uso cotidiano.','box'),
-      ('Fechas de vencimiento','Consulta las fechas de caducidad registradas.','calendar'),
-      ('Alertas oportunas','Funcionalidad prevista para avisar antes de vencer.','bell'),
-      ('Menos desperdicio','Una ayuda para aprovechar mejor lo que ya tienes.','heart')
-    ]
-    grid = ''.join(f'<article class="feature"><span class="mini-icon">{ic(icon)}</span><h3>{title}</h3><p>{desc}</p></article>' for title,desc,icon in feat)
-    extra = ('La aplicación se encuentra disponible en Google Play. Para consultas sobre disponibilidad, contacta con nuestro equipo de soporte.' if is_box else 'Las funciones descritas forman parte del concepto previsto y pueden cambiar durante el desarrollo. Todavía no existe una versión pública disponible.')
-    return section_hero('Aplicación FREDDTECH',name,summary,[('Aplicaciones','aplicaciones/'),(name,'aplicaciones/'+('donde-quedo/' if is_box else 'cuanto-queda/'))]) + f'''<section class="section"><div class="container detail-grid">{app_visual(which,style='detail-art')}
-      <div>{status}<h2 class="detail-headline">{quote}</h2><p>{summary}</p><p>{extra}</p>{play_button() if is_box else ""}
-        <div class="fine-note"><strong>Recursos oficiales:</strong> {'Icono oficial y galería de imágenes de la aplicación disponibles en esta página.' if is_box else 'Espacio reservado para icono y capturas reales, que se añadirán cuando sean proporcionados.'}</div>
-      </div></div></section>
-      {screenshot_gallery("box") if is_box else ""}
-      <section class="section section-warm"><div class="container"><div class="section-head"><span class="eyebrow">Cómo te ayuda</span><h2>{'Todo más fácil de encontrar.' if is_box else 'Lo importante, antes de vencer.'}</h2>
-       <p>{'Conoce las funciones y capacidades de la aplicación.' if is_box else 'Estas son las principales funciones previstas para el producto.'}</p></div>
-       <div class="feature-list">{grid}</div></div></section>
-      <section class="section"><div class="container content-block"><h2>Disponibilidad y privacidad</h2><p>{extra}</p>
-        <p>La documentación de privacidad específica de este producto tendrá su propio espacio oficial. No se publicarán políticas inventadas ni enlaces de descarga ficticios.</p>
-        <p>¿Necesitas ayuda con {name}? Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a>. El enlace abre tu aplicación de correo para que envíes el mensaje.</p>
-        {link('Consultar información de privacidad','privacidad/'+('donde-quedo/' if is_box else 'cuanto-queda/'),'btn btn-secondary','arrow-right')}
-      </div></section>'''
+    return catalog_detail(which)
 
 
 def about():
