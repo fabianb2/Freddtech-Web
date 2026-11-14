@@ -56,10 +56,18 @@ def catalog_visual(key, style='app-visual', caption=True):
     cls = 'detail-art' if style == 'detail-art' else 'app-visual mint'
     return f'<div class="{cls}"><div class="app-symbol official-app-symbol"><img src="{{{{ASSET}}}}assets/img/{app["icon"]}" width="512" height="512" alt="Icono de {app["name"]}"></div></div>'
 
+
+SCREENSHOTS = {'box': ['Tus objetos guardados', 'Guardar un objeto', 'Ajustes de la app', 'Recordatorios'], 'history': ['Registrar actividades', 'Categorías', 'Historial', 'Respaldo'], 'work': ['Tu jornada', 'Calendario de registros', 'Reportes', 'Respaldo'], 'service': ['Agenda de trabajo', 'Clientes', 'Servicios', 'Respaldos']}
+
+def screenshot_gallery(key):
+    name = '¿Dónde Quedó?' if key == 'box' else CATALOG[key]['name']
+    cards = ''.join(f'<figure class="screenshot-card"><a href="{{{{ASSET}}}}assets/img/screenshots/{key}/{i}.webp" aria-label="Ampliar: {escape(label)} de {escape(name)}"><img src="{{{{ASSET}}}}assets/img/screenshots/{key}/{i}.webp" alt="{escape(name)}: {escape(label)}, presentación de teléfono en 3D" width="900" height="1600" loading="lazy" decoding="async"></a><figcaption>{escape(label)}</figcaption></figure>' for i,label in enumerate(SCREENSHOTS[key],1))
+    return f'<section class="section app-screenshots"><div class="container"><div class="section-head"><span class="eyebrow">Conoce la app</span><h2>{escape(name)} en imágenes</h2><p>Explora sus pantallas en una presentación de teléfono en 3D. Toca una imagen para ampliarla.</p></div><div class="screenshot-grid">{cards}</div><p class="small muted screenshot-note">Imágenes promocionales con datos de ejemplo. La apariencia puede variar según la versión y el dispositivo.</p></div></section>'
+
 def catalog_detail(key):
     app = CATALOG[key]
     features = ''.join(f'<article class="feature"><h3>{title}</h3><p>{text}</p></article>' for title,text in app['features'])
-    return section_hero('Aplicación FREDDTECH',app['name'],app['desc'],[('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')]) + f'''<section class="section"><div class="container detail-grid">{catalog_visual(key,'detail-art')}<div>{badge('Prueba cerrada','blue')}<h2>{app['quote']}</h2><p>{app['desc']}</p><p>Esta aplicación se encuentra en prueba cerrada. El acceso está limitado a los participantes autorizados; todavía no se ofrece descarga pública.</p><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a></div></div></section><section class="section section-warm"><div class="container"><div class="section-head"><h2>Cómo te ayuda</h2></div><div class="feature-list">{features}</div></div></section>'''
+    return section_hero('Aplicación FREDDTECH',app['name'],app['desc'],[('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')]) + f'''<section class="section"><div class="container detail-grid">{catalog_visual(key,'detail-art')}<div>{badge('Prueba cerrada','blue')}<h2>{app['quote']}</h2><p>{app['desc']}</p><p>Esta aplicación se encuentra en prueba cerrada. El acceso está limitado a los participantes autorizados; todavía no se ofrece descarga pública.</p><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a></div></div></section><section class="section section-warm"><div class="container"><div class="section-head"><h2>Cómo te ayuda</h2></div><div class="feature-list">{features}</div></div></section>''' + screenshot_gallery(key)
 
 def app_visual(which, style="app-visual", caption=True):
     if which in CATALOG:
@@ -167,8 +175,9 @@ def app_detail(which):
     extra = ('La aplicación se encuentra disponible en Google Play. Para consultas sobre disponibilidad, contacta con nuestro equipo de soporte.' if is_box else 'Las funciones descritas forman parte del concepto previsto y pueden cambiar durante el desarrollo. Todavía no existe una versión pública disponible.')
     return section_hero('Aplicación FREDDTECH',name,summary,[('Aplicaciones','aplicaciones/'),(name,'aplicaciones/'+('donde-quedo/' if is_box else 'cuanto-queda/'))]) + f'''<section class="section"><div class="container detail-grid">{app_visual(which,style='detail-art')}
       <div>{status}<h2 class="detail-headline">{quote}</h2><p>{summary}</p><p>{extra}</p>{play_button() if is_box else ""}
-        <div class="fine-note"><strong>Recursos oficiales:</strong> {'Icono oficial de la aplicación. Las capturas se añadirán cuando estén disponibles.' if is_box else 'Espacio reservado para icono y capturas reales, que se añadirán cuando sean proporcionados.'}</div>
+        <div class="fine-note"><strong>Recursos oficiales:</strong> {'Icono oficial y galería de imágenes de la aplicación disponibles en esta página.' if is_box else 'Espacio reservado para icono y capturas reales, que se añadirán cuando sean proporcionados.'}</div>
       </div></div></section>
+      {screenshot_gallery("box") if is_box else ""}
       <section class="section section-warm"><div class="container"><div class="section-head"><span class="eyebrow">Cómo te ayuda</span><h2>{'Todo más fácil de encontrar.' if is_box else 'Lo importante, antes de vencer.'}</h2>
        <p>{'Conoce las funciones y capacidades de la aplicación.' if is_box else 'Estas son las principales funciones previstas para el producto.'}</p></div>
        <div class="feature-list">{grid}</div></div></section>
