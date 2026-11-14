@@ -44,7 +44,26 @@ def section_hero(label, heading, intro, bc=None):
     <h1>{heading}</h1><p>{intro}</p></div></section>'''
 
 
+
+CATALOG = {
+    'history': dict(name='¿Cuándo lo hice?', slug='cuando-lo-hice', icon='cuando-lo-hice.png', desc='Registra cuándo realizaste una actividad y consulta su historial para recordar la última vez.', quote='Recuerda la última vez.', features=[('Actividades a tu manera','Organiza actividades y categorías personalizadas.'),('Historial de registros','Consulta cuándo realizaste cada actividad.'),('Recordatorios','Recibe avisos para tus actividades.'),('Gestión sencilla','Edita, archiva y elimina registros con confirmación.')]),
+    'work': dict(name='Mi jornada - extra', slug='mi-jornada', icon='mi-jornada.png', desc='Registra entradas y salidas, organiza tus tramos de trabajo y consulta el tiempo de tu jornada.', quote='Tu tiempo de trabajo, más claro.', features=[('Entradas y salidas','Marca el inicio y fin de cada tramo de trabajo.'),('Varios tramos al día','Los descansos entre tramos no se suman al tiempo trabajado.'),('Historial por fecha','Consulta registros diarios y añade observaciones.'),('Jornada configurable','Configura tu jornada y revisa tus horas registradas.')]),
+    'service': dict(name='TecniRuta', slug='tecniruta', icon='tecniruta.png', desc='Organiza clientes, equipos y servicios técnicos en campo, con agenda e informes de trabajo.', quote='Cada servicio, bien organizado.', features=[('Clientes y equipos','Organiza clientes, ubicaciones y equipos.'),('Agenda de servicios','Consulta citas, trabajos pendientes y próximas revisiones.'),('Registro del trabajo','Conserva diagnósticos, procedimientos, repuestos y fotografías.'),('Informes y copias','Genera informes PDF y copias de tus registros.')])
+}
+
+def catalog_visual(key, style='app-visual', caption=True):
+    app = CATALOG[key]
+    cls = 'detail-art' if style == 'detail-art' else 'app-visual mint'
+    return f'<div class="{cls}"><div class="app-symbol official-app-symbol"><img src="{{{{ASSET}}}}assets/img/{app["icon"]}" width="512" height="512" alt="Icono de {app["name"]}"></div></div>'
+
+def catalog_detail(key):
+    app = CATALOG[key]
+    features = ''.join(f'<article class="feature"><h3>{title}</h3><p>{text}</p></article>' for title,text in app['features'])
+    return section_hero('Aplicación FREDDTECH',app['name'],app['desc'],[('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')]) + f'''<section class="section"><div class="container detail-grid">{catalog_visual(key,'detail-art')}<div>{badge('Prueba cerrada','blue')}<h2>{app['quote']}</h2><p>{app['desc']}</p><p>Esta aplicación se encuentra en prueba cerrada. El acceso está limitado a los participantes autorizados; todavía no se ofrece descarga pública.</p><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a></div></div></section><section class="section section-warm"><div class="container"><div class="section-head"><h2>Cómo te ayuda</h2></div><div class="feature-list">{features}</div></div></section>'''
+
 def app_visual(which, style="app-visual", caption=True):
+    if which in CATALOG:
+        return catalog_visual(which, style, caption)
     if which == 'box':
         cls = 'detail-art' if style == 'detail-art' else 'app-visual mint'
         cap = '<span class="visual-caption">Icono oficial</span>' if caption and style != 'detail-art' else ''
@@ -59,7 +78,10 @@ def app_visual(which, style="app-visual", caption=True):
 
 
 def app_card(which):
-    if which == 'box':
+    if which in CATALOG:
+        app = CATALOG[which]
+        name, status, kind, quote, desc, url = app['name'], 'Prueba cerrada', 'blue', app['quote'], app['desc'], 'aplicaciones/'+app['slug']+'/'
+    elif which == 'box':
         name, status, kind, quote, desc, url = '¿Dónde Quedó?', 'Disponible en Google Play', 'blue', 'Menos buscar, más vivir.', 'Recuerda dónde guardaste tus objetos y encuentra cada cosa cuando la necesites.', 'aplicaciones/donde-quedo/'
     else:
         name, status, kind, quote, desc, url = '¿Cuánto Queda?', 'En planificación', 'peach', 'Menos desperdicio, más ahorro.', 'Organiza productos, revisa fechas de caducidad y recibe alertas antes de su vencimiento.', 'aplicaciones/cuanto-queda/'
@@ -96,7 +118,7 @@ def home():
     </div></div>
     <section class="section" id="aplicaciones"><div class="container"><div class="section-head"><span class="eyebrow">01 / Nuestras aplicaciones</span>
       <h2>Apps que hacen tu día <span class="text-blue">más fácil.</span></h2><p>Cada proyecto empieza con una necesidad cotidiana y una pregunta: ¿cómo podemos resolverla de forma más simple?</p></div>
-      <div class="app-grid">{app_card('box')}{app_card('calendar')}</div>
+      <div class="app-grid">{app_card('box')}{''.join(app_card(key) for key in CATALOG)}</div>
       <div class="space-top-27">{link('Conocer todas las aplicaciones','aplicaciones/','btn btn-plain','arrow-right')}</div>
     </div></section>
     <aside class="ad-section" aria-label="Publicidad"><div class="container"><p class="ad-label">Publicidad</p><ins class="adsbygoogle" data-ad-client="ca-pub-1728686227442320" data-ad-slot="1959689089" data-ad-format="auto" data-full-width-responsive="true"></ins></div></aside>
@@ -112,15 +134,15 @@ def home():
     <section class="section"><div class="container"><div class="section-head"><span class="eyebrow">03 / Mantente al día</span><h2>Lo nuevo en <span class="text-blue">FREDDTECH.</span></h2>
        <p>Conoce nuestras aplicaciones en preparación y los siguientes pasos del proyecto.</p></div>
        <div class="news-list"><article class="news-card"><span class="kicker">En preparación</span><h3>Un espacio para nuestras aplicaciones</h3><p>Estamos construyendo un sitio donde explorar cada solución y encontrar su información oficial.</p></article>
-       <article class="news-card"><span class="kicker">Próximamente</span><h3>¿Cuánto Queda?</h3><p>Un proyecto pensado para organizar vencimientos y ayudarte a reducir desperdicios.</p></article></div>
+       <article class="news-card"><span class="kicker">Prueba cerrada</span><h3>Tres apps para tu día a día</h3><p>¿Cuándo lo hice?, Mi jornada - extra y TecniRuta se encuentran en prueba cerrada.</p></article></div>
        <div class="space-top-25">{link('Ver novedades','novedades/','btn btn-plain','arrow-right')}</div></div></section>
     <section class="cta-section"><div class="container"><div class="cta-panel"><div><span class="eyebrow">Hablemos de soluciones</span><h2>¿Tienes una idea o necesitas ayuda?</h2><p>Encuentra respuestas, consulta el estado de nuestras apps y descubre cómo contactar con el equipo.</p></div>
       {link('Ir a soporte','soporte/','btn btn-primary','arrow-right')}</div></div></section>'''
 
 
 def applications():
-    return section_hero('Nuestras aplicaciones','Soluciones pequeñas.<br><span class="text-blue">Impacto cotidiano.</span>','Conoce las aplicaciones FREDDTECH y descubre en qué etapa se encuentra cada una.',[('Aplicaciones','aplicaciones/')]) + f'''<section class="section"><div class="container"><div class="app-grid">{app_card('box')}{app_card('calendar')}</div>
-      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» está disponible en Google Play. «¿Cuánto Queda?» continúa en planificación.</div>
+    return section_hero('Nuestras aplicaciones','Soluciones pequeñas.<br><span class="text-blue">Impacto cotidiano.</span>','Conoce las aplicaciones FREDDTECH y descubre en qué etapa se encuentra cada una.',[('Aplicaciones','aplicaciones/')]) + f'''<section class="section"><div class="container"><div class="app-grid">{app_card('box')}{''.join(app_card(key) for key in CATALOG)}</div>
+      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» está disponible en Google Play. «¿Cuándo lo hice?», «Mi jornada - extra» y «TecniRuta» están en prueba cerrada.</div>
     </div></section>'''
 
 
@@ -170,7 +192,7 @@ def about():
 def support():
     faqs = [
       ('¿Puedo descargar «¿Dónde Quedó?»?', 'Sí. Visita <a href="https://play.google.com/store/apps/details?id=com.freddtech.dondequedo">la ficha de ¿Dónde Quedó? en Google Play</a> para descargarla y consultar la disponibilidad en tu dispositivo o región.'),
-      ('¿«¿Cuánto Queda?» está disponible?', 'No. El proyecto está en planificación/desarrollo; la web lo mostrará como «Próximamente» hasta que exista un lanzamiento real.'),
+      ('¿Puedo acceder a las apps en prueba cerrada?', '¿Cuándo lo hice?, Mi jornada - extra y TecniRuta están en prueba cerrada. Su acceso está limitado a participantes autorizados. Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> para consultar.'),
       ('¿Cómo solicito una nueva función?', 'Envía tu propuesta a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica a qué aplicación corresponde.'),
       ('¿Cómo puedo reportar un error?', 'Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica la aplicación, el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
       ('¿Dónde encuentro la política de privacidad?', 'La sección Privacidad incluye un apartado independiente para cada aplicación. Enlazaremos allí los documentos oficiales una vez confirmados.'),
@@ -187,7 +209,7 @@ def support():
 def privacy():
     return section_hero('Privacidad y documentación','Información clara.<br><span class="text-blue">Confianza real.</span>','Cada aplicación contará con su documentación de privacidad individual, publicada solo cuando sus textos y enlaces oficiales estén confirmados.',[('Privacidad','privacidad/')]) + f'''<section class="section"><div class="container"><div class="section-head"><span class="eyebrow">Documentos por aplicación</span><h2>Privacidad de la web y las aplicaciones.</h2><p>Consulta cómo tratamos la información al visitar este sitio.</p>{link('Privacidad y cookies de la web','privacidad/web/','btn btn-primary','arrow-right')}</div>
       <div class="policy-grid"><article class="policy-card">{badge('Disponible en Google Play','blue')}<h3 class="space-top-17">¿Dónde Quedó?</h3><p>Área reservada para la política oficial de privacidad de «¿Dónde Quedó?». Este sitio no sustituye el documento legal publicado para la app.</p>{link('Ver apartado de privacidad','privacidad/donde-quedo/','btn btn-secondary','arrow-right')}</article>
-      <article class="policy-card">{badge('En planificación','peach')}<h3 class="space-top-17">¿Cuánto Queda?</h3><p>Espacio para la futura política de privacidad, que dependerá de las funciones y tratamientos de datos definitivos del producto.</p>{link('Ver apartado de privacidad','privacidad/cuanto-queda/','btn btn-secondary','arrow-right')}</article></div>
+      </div>
       <div class="status-info page-bottom"><strong>Importante:</strong> las secciones informativas pendientes no constituyen una política de privacidad legal. Antes de publicar un documento definitivo, verifica su contenido y enlace oficial.</div>
     </div></section>'''
 
@@ -224,7 +246,7 @@ def privacy_app(which):
 def news():
     return section_hero('Novedades','Ideas que avanzan.<br><span class="text-blue">Apps que evolucionan.</span>','Un espacio para comunicar futuros lanzamientos, mejoras y noticias reales de nuestras aplicaciones.',[('Novedades','novedades/')]) + f'''<section class="section"><div class="container"><div class="news-list">
        <article class="news-card"><span class="kicker">Sitio web · En preparación</span><h3>Un nuevo hogar para FREDDTECH</h3><p>Esta primera versión reúne nuestras aplicaciones, filosofía, soporte y secciones de documentación en una sola experiencia.</p></article>
-       <article class="news-card"><span class="kicker">Aplicación · En planificación</span><h3>¿Cuánto Queda?</h3><p>Un concepto para registrar productos, seguir fechas de caducidad y recibir avisos útiles antes de su vencimiento.</p></article>
+       <article class="news-card"><span class="kicker">Prueba cerrada</span><h3>Tres apps para tu día a día</h3><p>¿Cuándo lo hice?, Mi jornada - extra y TecniRuta se encuentran en prueba cerrada.</p></article>
        <article class="news-card"><span class="kicker">Aplicación · Disponible en Google Play</span><h3>¿Dónde Quedó?</h3><p>La app Android que ayuda a recordar dónde se guardaron los objetos ya está disponible en Google Play.</p></article>
        <article class="news-card"><span class="kicker">Próximas publicaciones</span><h3>Actualizaciones verificadas</h3><p>Publicaremos fechas y enlaces solo cuando existan anuncios oficiales confirmados. No se muestran cifras de usuarios ni estadísticas inventadas.</p></article>
       </div></div></section>'''
@@ -275,7 +297,7 @@ def render_page(slug, title, description, body, active=''):
     <a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio"><img class="brand-symbol" src="{root}assets/img/freddtech-symbol.svg?v=curva-1" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="{root}aplicaciones/">Aplicaciones</a><a href="{root}nosotros/">Sobre FREDDTECH</a><a href="{root}novedades/">Novedades</a></div>
-    <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuanto-queda/">¿Cuánto Queda?</a></div>
+    <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuando-lo-hice/">¿Cuándo lo hice?</a><a href="{root}aplicaciones/mi-jornada/">Mi jornada - extra</a><a href="{root}aplicaciones/tecniruta/">TecniRuta</a></div>
     <div class="footer-col"><h3>Legal</h3><a href="{root}#opciones-privacidad">Opciones de privacidad</a><a href="{root}privacidad/web/">Privacidad y cookies de la web</a><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
   </div><div class="footer-bottom"><span>© <span data-year>2026</span> FREDDTECH. Pequeñas apps. Grandes soluciones.</span>
   <span>Hecho para simplificar lo cotidiano.</span></div></div></footer>
@@ -293,16 +315,15 @@ def main():
        ('','FREDDTECH — Pequeñas apps. Grandes soluciones.','FREDDTECH desarrolla aplicaciones Android sencillas que resuelven problemas cotidianos.', home(),'home'),
        ('aplicaciones','Aplicaciones Android | FREDDTECH','Explora las aplicaciones Android de FREDDTECH y sus estados de desarrollo.', applications(),'apps'),
        ('aplicaciones/donde-quedo','¿Dónde Quedó? | FREDDTECH','¿Dónde Quedó? te ayuda a recordar dónde guardaste tus objetos. App disponible en Google Play.', app_detail('box'),'apps'),
-       ('aplicaciones/cuanto-queda','¿Cuánto Queda? | FREDDTECH','¿Cuánto Queda? es una app en planificación para fechas de caducidad y alertas.', app_detail('calendar'),'apps'),
        ('nosotros','Sobre FREDDTECH | Aplicaciones con propósito','Conoce la filosofía de FREDDTECH: aplicaciones Android útiles, simples y confiables.', about(),'about'),
        ('soporte','Soporte FREDDTECH | Ayuda y preguntas frecuentes','Encuentra respuestas sobre aplicaciones FREDDTECH, disponibilidad y soporte.', support(),'support'),
        ('privacidad','Privacidad y documentación | FREDDTECH','Secciones independientes para la documentación de privacidad de cada app FREDDTECH.', privacy(),''),
        ('privacidad/web','Privacidad y cookies de la web | FREDDTECH','Información sobre navegación, soporte, cookies y preparación de Google AdSense en FREDDTECH WEB.', privacy_web(),''),
        ('privacidad/donde-quedo','Privacidad de ¿Dónde Quedó? | FREDDTECH','Área informativa para enlazar la política oficial de privacidad de ¿Dónde Quedó?.', privacy_app('box'),''),
-       ('privacidad/cuanto-queda','Privacidad de ¿Cuánto Queda? | FREDDTECH','Área informativa de privacidad para ¿Cuánto Queda?, en desarrollo.', privacy_app('calendar'),''),
        ('novedades','Novedades y próximos lanzamientos | FREDDTECH','Consulta los estados de desarrollo de las aplicaciones y novedades de FREDDTECH.', news(),'news'),
        ('terminos','Términos de uso | FREDDTECH','Sección en preparación para términos de uso oficiales FREDDTECH.', terms(),'')
     ]
+    pages.extend(('aplicaciones/'+app['slug'], app['name']+' | FREDDTECH', app['desc'], catalog_detail(key), 'apps') for key,app in CATALOG.items())
     for data in pages:
        print(render_page(*data))
     # 404 sin redirigir automáticamente ni cargar recursos externos

@@ -143,3 +143,7 @@ Esta sección actualiza la preparación anterior. Bloque Display adaptable `1959
 - La política de privacidad de la web describe la integración instalada. El sitio puede seguir sin mostrar anuncios mientras Google revisa su aprobación. No se ha confirmado la opción de anuncios automáticos ni la entrega de un anuncio real desde la cuenta.
 
 Fuentes técnicas: https://support.google.com/adsense/answer/16283098 y https://developers.google.com/funding-choices/fc-api-docs .
+
+## Catálogo público actualizado · 14 de noviembre de 2026
+
+¿Dónde Quedó? disponible en Google Play. ¿Cuándo lo hice?, Mi jornada - extra y TecniRuta en prueba cerrada, confirmado por el propietario. ¿Cuánto Queda? se retira del catálogo público hasta definir el producto. Los iconos provienen de las entregas de cada proyecto Android; Mi Jornada utiliza la entrega 3D vigente.
