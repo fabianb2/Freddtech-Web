@@ -9,8 +9,10 @@ import base64
 ROOT = Path(__file__).resolve().parent.parent / "public"
 PLAY_URL = "https://play.google.com/store/apps/details?id=com.freddtech.dondequedo"
 
-def play_button():
-    return f'<a href="{PLAY_URL}" class="btn btn-primary">Descargar en Google Play</a>'
+PLAY_URLS = {"box": PLAY_URL, "work": "https://play.google.com/store/apps/details?id=com.freddtech.mijornada"}
+
+def play_button(key="box"):
+    return f'<a href="{PLAY_URLS[key]}" class="btn btn-primary">Descargar en Google Play</a>'
 
 
 
@@ -69,11 +71,11 @@ def catalog_detail(key):
         app = dict(name='¿Dónde Quedó?', slug='donde-quedo', icon='donde-quedo-icon.png', desc='Recuerda dónde guardaste tus objetos y encuentra cada cosa cuando la necesites.', quote='Menos buscar, más vivir.', features=[('Registro de objetos','Guarda el nombre, una foto y los detalles de tus objetos.'),('Ubicación de guardado','Recuerda el lugar donde dejaste cada cosa.'),('Búsqueda sencilla','Consulta tus registros para encontrar lo que necesitas.'),('Recordatorios','Programa avisos para revisar tus objetos.')])
     else:
         app = CATALOG[key]
-    state = 'Disponible en Google Play' if key == 'box' else 'Prueba cerrada'
-    action = play_button() if key == 'box' else '<a class="btn btn-primary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a>'
-    availability = 'Consulta la disponibilidad para tu dispositivo y región en Google Play.' if key == 'box' else 'Acceso limitado a participantes autorizados. La descarga pública todavía no está disponible.'
+    state = 'Disponible en Google Play' if key in PLAY_URLS else 'Prueba cerrada'
+    action = play_button(key) if key in PLAY_URLS else '<a class="btn btn-primary" href="mailto:freddtech26@gmail.com">Consultar sobre la prueba</a>'
+    availability = 'Consulta la disponibilidad para tu dispositivo y región en Google Play.' if key in PLAY_URLS else 'Acceso limitado a participantes autorizados. La descarga pública todavía no está disponible.'
     features = ''.join(f'<article class="feature"><span class="feature-number">{i:02d}</span><h3>{title}</h3><p>{text}</p></article>' for i,(title,text) in enumerate(app['features'],1))
-    return f'''<section class="app-detail-hero"><div class="container">{breadcrumb([('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')])}<div class="app-detail-intro"><div class="app-detail-copy">{badge(state,'green' if key == 'box' else 'blue')}<h1>{app['name']}</h1><p class="app-detail-tagline">{app['quote']}</p><p class="app-detail-description">{app['desc']}</p><div class="buttons">{action}<a href="#capturas" class="btn btn-secondary">Explorar capturas {ic('arrow-right')}</a></div><p class="app-availability">{availability}</p></div><img class="app-detail-icon" src="{{{{ASSET}}}}assets/img/{app['icon']}" alt="Icono de {app['name']}" width="512" height="512"></div><nav class="app-detail-nav" aria-label="Secciones de la aplicación"><a href="#capturas">Capturas</a><a href="#funciones">Funciones</a><a href="#ayuda-app">Soporte</a></nav></div></section>''' + screenshot_gallery(key) + f'''<section class="section app-features" id="funciones"><div class="container"><div class="section-head"><span class="eyebrow">Pensada para ti</span><h2>Lo que puedes hacer</h2></div><div class="feature-list">{features}</div></div></section><section class="app-help" id="ayuda-app"><div class="container"><div class="contact-card"><div><span class="eyebrow">Estamos para ayudarte</span><h2>¿Tienes alguna consulta?</h2><p>Indica el nombre de la app y cuéntanos cómo podemos ayudarte.</p></div><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">freddtech26@gmail.com {ic('arrow-up-right')}</a></div></div></section>'''
+    return f'''<section class="app-detail-hero"><div class="container">{breadcrumb([('Aplicaciones','aplicaciones/'),(app['name'],'aplicaciones/'+app['slug']+'/')])}<div class="app-detail-intro"><div class="app-detail-copy">{badge(state,'green' if key in PLAY_URLS else 'blue')}<h1>{app['name']}</h1><p class="app-detail-tagline">{app['quote']}</p><p class="app-detail-description">{app['desc']}</p><div class="buttons">{action}<a href="#capturas" class="btn btn-secondary">Explorar capturas {ic('arrow-right')}</a></div><p class="app-availability">{availability}</p></div><img class="app-detail-icon" src="{{{{ASSET}}}}assets/img/{app['icon']}" alt="Icono de {app['name']}" width="512" height="512"></div><nav class="app-detail-nav" aria-label="Secciones de la aplicación"><a href="#capturas">Capturas</a><a href="#funciones">Funciones</a><a href="#ayuda-app">Soporte</a></nav></div></section>''' + screenshot_gallery(key) + f'''<section class="section app-features" id="funciones"><div class="container"><div class="section-head"><span class="eyebrow">Pensada para ti</span><h2>Lo que puedes hacer</h2></div><div class="feature-list">{features}</div></div></section><section class="app-help" id="ayuda-app"><div class="container"><div class="contact-card"><div><span class="eyebrow">Estamos para ayudarte</span><h2>¿Tienes alguna consulta?</h2><p>Indica el nombre de la app y cuéntanos cómo podemos ayudarte.</p></div><a class="btn btn-secondary" href="mailto:freddtech26@gmail.com">freddtech26@gmail.com {ic('arrow-up-right')}</a></div></div></section>'''
 
 
 def app_visual(which, style="app-visual", caption=True):
@@ -95,13 +97,13 @@ def app_visual(which, style="app-visual", caption=True):
 def app_card(which):
     if which in CATALOG:
         app = CATALOG[which]
-        name, status, kind, quote, desc, url = app['name'], 'Prueba cerrada', 'blue', app['quote'], app['desc'], 'aplicaciones/'+app['slug']+'/'
+        name, status, kind, quote, desc, url = app['name'], ('Disponible en Google Play' if which in PLAY_URLS else 'Prueba cerrada'), ('green' if which in PLAY_URLS else 'blue'), app['quote'], app['desc'], 'aplicaciones/'+app['slug']+'/'
     elif which == 'box':
         name, status, kind, quote, desc, url = '¿Dónde Quedó?', 'Disponible en Google Play', 'blue', 'Menos buscar, más vivir.', 'Recuerda dónde guardaste tus objetos y encuentra cada cosa cuando la necesites.', 'aplicaciones/donde-quedo/'
     else:
         name, status, kind, quote, desc, url = '¿Cuánto Queda?', 'En planificación', 'peach', 'Menos desperdicio, más ahorro.', 'Organiza productos, revisa fechas de caducidad y recibe alertas antes de su vencimiento.', 'aplicaciones/cuanto-queda/'
     return f'''<article class="app-card">{app_visual(which)}<div class="card-content">{badge(status,kind)}<h3>{name}</h3><p>{desc}</p>
-      <div class="card-bottom"><strong>{quote}</strong>{link('Ver detalles',url,'','arrow-right')}</div>{play_button() if which == 'box' else ''}</div></article>'''
+      <div class="card-bottom"><strong>{quote}</strong>{link('Ver detalles',url,'','arrow-right')}</div>{play_button(which) if which in PLAY_URLS else ''}</div></article>'''
 
 
 def foot_note():
@@ -149,7 +151,7 @@ def home():
     <section class="section"><div class="container"><div class="section-head"><span class="eyebrow">03 / Mantente al día</span><h2>Lo nuevo en <span class="text-blue">FREDDTECH.</span></h2>
        <p>Conoce nuestras aplicaciones en preparación y los siguientes pasos del proyecto.</p></div>
        <div class="news-list"><article class="news-card"><span class="kicker">En preparación</span><h3>Un espacio para nuestras aplicaciones</h3><p>Estamos construyendo un sitio donde explorar cada solución y encontrar su información oficial.</p></article>
-       <article class="news-card"><span class="kicker">Prueba cerrada</span><h3>Tres apps para tu día a día</h3><p>¿Cuándo lo hice?, Mi jornada - extra y TecniRuta se encuentran en prueba cerrada.</p></article></div>
+       <article class="news-card"><span class="kicker">Disponible en Google Play</span><h3>Mi Jornada - Extra</h3><p>Mi Jornada - Extra ya está disponible en Google Play. ¿Cuándo lo hice? y TecniRuta continúan en prueba cerrada.</p></article></div>
        <div class="space-top-25">{link('Ver novedades','novedades/','btn btn-plain','arrow-right')}</div></div></section>
     <section class="cta-section"><div class="container"><div class="cta-panel"><div><span class="eyebrow">Hablemos de soluciones</span><h2>¿Tienes una idea o necesitas ayuda?</h2><p>Encuentra respuestas, consulta el estado de nuestras apps y descubre cómo contactar con el equipo.</p></div>
       {link('Ir a soporte','soporte/','btn btn-primary','arrow-right')}</div></div></section>'''
@@ -157,7 +159,7 @@ def home():
 
 def applications():
     return section_hero('Nuestras aplicaciones','Soluciones pequeñas.<br><span class="text-blue">Impacto cotidiano.</span>','Conoce las aplicaciones FREDDTECH y descubre en qué etapa se encuentra cada una.',[('Aplicaciones','aplicaciones/')]) + f'''<section class="section"><div class="container"><div class="app-grid">{app_card('box')}{''.join(app_card(key) for key in CATALOG)}</div>
-      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» está disponible en Google Play. «¿Cuándo lo hice?», «Mi jornada - extra» y «TecniRuta» están en prueba cerrada.</div>
+      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» y «Mi Jornada - Extra» están disponibles en Google Play. «¿Cuándo lo hice?» y «TecniRuta» están en prueba cerrada.</div>
     </div></section>'''
 
 
@@ -178,7 +180,8 @@ def about():
 def support():
     faqs = [
       ('¿Puedo descargar «¿Dónde Quedó?»?', 'Sí. Visita <a href="https://play.google.com/store/apps/details?id=com.freddtech.dondequedo">la ficha de ¿Dónde Quedó? en Google Play</a> para descargarla y consultar la disponibilidad en tu dispositivo o región.'),
-      ('¿Puedo acceder a las apps en prueba cerrada?', '¿Cuándo lo hice?, Mi jornada - extra y TecniRuta están en prueba cerrada. Su acceso está limitado a participantes autorizados. Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> para consultar.'),
+      ('¿Puedo descargar Mi Jornada - Extra?', 'Sí. Visita <a href="https://play.google.com/store/apps/details?id=com.freddtech.mijornada">Mi Jornada - Extra en Google Play</a> para descargarla y consultar la disponibilidad en tu dispositivo.'),
+      ('¿Puedo acceder a las apps en prueba cerrada?', '¿Cuándo lo hice? y TecniRuta están en prueba cerrada. Su acceso está limitado a participantes autorizados. Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> para consultar.'),
       ('¿Cómo solicito una nueva función?', 'Envía tu propuesta a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica a qué aplicación corresponde.'),
       ('¿Cómo puedo reportar un error?', 'Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica la aplicación, el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
       ('¿Dónde encuentro la política de privacidad?', 'La sección Privacidad incluye un apartado independiente para cada aplicación. Enlazaremos allí los documentos oficiales una vez confirmados.'),
@@ -232,7 +235,7 @@ def privacy_app(which):
 def news():
     return section_hero('Novedades','Ideas que avanzan.<br><span class="text-blue">Apps que evolucionan.</span>','Un espacio para comunicar futuros lanzamientos, mejoras y noticias reales de nuestras aplicaciones.',[('Novedades','novedades/')]) + f'''<section class="section"><div class="container"><div class="news-list">
        <article class="news-card"><span class="kicker">Sitio web · En preparación</span><h3>Un nuevo hogar para FREDDTECH</h3><p>Esta primera versión reúne nuestras aplicaciones, filosofía, soporte y secciones de documentación en una sola experiencia.</p></article>
-       <article class="news-card"><span class="kicker">Prueba cerrada</span><h3>Tres apps para tu día a día</h3><p>¿Cuándo lo hice?, Mi jornada - extra y TecniRuta se encuentran en prueba cerrada.</p></article>
+       <article class="news-card"><span class="kicker">Disponible en Google Play</span><h3>Mi Jornada - Extra</h3><p>Mi Jornada - Extra ya está disponible en Google Play. ¿Cuándo lo hice? y TecniRuta continúan en prueba cerrada.</p></article>
        <article class="news-card"><span class="kicker">Aplicación · Disponible en Google Play</span><h3>¿Dónde Quedó?</h3><p>La app Android que ayuda a recordar dónde se guardaron los objetos ya está disponible en Google Play.</p></article>
        <article class="news-card"><span class="kicker">Próximas publicaciones</span><h3>Actualizaciones verificadas</h3><p>Publicaremos fechas y enlaces solo cuando existan anuncios oficiales confirmados. No se muestran cifras de usuarios ni estadísticas inventadas.</p></article>
       </div></div></section>'''
