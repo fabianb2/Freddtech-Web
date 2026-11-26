@@ -53,6 +53,8 @@ CATALOG = {
     'service': dict(name='TecniRuta', slug='tecniruta', icon='tecniruta.png', desc='Organiza clientes, equipos y servicios técnicos en campo, con agenda e informes de trabajo.', quote='Cada servicio, bien organizado.', features=[('Clientes y equipos','Organiza clientes, ubicaciones y equipos.'),('Agenda de servicios','Consulta citas, trabajos pendientes y próximas revisiones.'),('Registro del trabajo','Conserva diagnósticos, procedimientos, repuestos y fotografías.'),('Informes y copias','Genera informes PDF y copias de tus registros.')])
 }
 
+CATALOG['auto'] = {'name': 'Mi Auto al Día', 'slug': 'mi-auto-al-dia', 'icon': 'mi-auto-al-dia.png', 'desc': 'Organiza tus autos y motos, registra mantenimientos y consulta sus próximos avisos por fecha o kilometraje.', 'quote': 'El cuidado de tus vehículos, al día.', 'features': [('Autos y motos', 'Guarda tus vehículos con nombre, kilometraje y foto opcional.'), ('Historial de mantenimiento', 'Registra servicios, notas y fotografías en la ficha de cada vehículo.'), ('Avisos por fecha o kilometraje', 'Consulta los mantenimientos próximos y vencidos.'), ('Copias de seguridad', 'Conserva tus registros y fotos mediante copias manuales o copias privadas de Google Drive.')]}
+
 def catalog_visual(key, style='app-visual', caption=True):
     app = CATALOG[key]
     cls = 'detail-art' if style == 'detail-art' else 'app-visual mint'
@@ -60,6 +62,8 @@ def catalog_visual(key, style='app-visual', caption=True):
 
 
 SCREENSHOTS = {'box': ['Tus objetos guardados', 'Guardar un objeto', 'Ajustes de la app', 'Recordatorios'], 'history': ['Registrar actividades', 'Categorías', 'Historial', 'Respaldo'], 'work': ['Tu jornada', 'Calendario de registros', 'Reportes', 'Respaldo'], 'service': ['Agenda de trabajo', 'Clientes', 'Servicios', 'Respaldos']}
+
+SCREENSHOTS['auto'] = ['Tus vehículos', 'Registro de mantenimiento', 'Agregar un vehículo']
 
 def screenshot_gallery(key):
     name = '¿Dónde Quedó?' if key == 'box' else CATALOG[key]['name']
@@ -151,7 +155,7 @@ def home():
     <section class="section"><div class="container"><div class="section-head"><span class="eyebrow">03 / Mantente al día</span><h2>Lo nuevo en <span class="text-blue">FREDDTECH.</span></h2>
        <p>Conoce nuestras aplicaciones en preparación y los siguientes pasos del proyecto.</p></div>
        <div class="news-list"><article class="news-card"><span class="kicker">En preparación</span><h3>Un espacio para nuestras aplicaciones</h3><p>Estamos construyendo un sitio donde explorar cada solución y encontrar su información oficial.</p></article>
-       <article class="news-card"><span class="kicker">Disponible en Google Play</span><h3>Mi Jornada - Extra</h3><p>Mi Jornada - Extra ya está disponible en Google Play. ¿Cuándo lo hice? y TecniRuta continúan en prueba cerrada.</p></article></div>
+       <article class="news-card"><span class="kicker">Disponible en Google Play</span><h3>Mi Jornada - Extra</h3><p>Mi Jornada - Extra ya está disponible en Google Play. ¿Cuándo lo hice?, TecniRuta y Mi Auto al Día continúan en prueba cerrada.</p></article></div>
        <div class="space-top-25">{link('Ver novedades','novedades/','btn btn-plain','arrow-right')}</div></div></section>
     <section class="cta-section"><div class="container"><div class="cta-panel"><div><span class="eyebrow">Hablemos de soluciones</span><h2>¿Tienes una idea o necesitas ayuda?</h2><p>Encuentra respuestas, consulta el estado de nuestras apps y descubre cómo contactar con el equipo.</p></div>
       {link('Ir a soporte','soporte/','btn btn-primary','arrow-right')}</div></div></section>'''
@@ -159,7 +163,7 @@ def home():
 
 def applications():
     return section_hero('Nuestras aplicaciones','Soluciones pequeñas.<br><span class="text-blue">Impacto cotidiano.</span>','Conoce las aplicaciones FREDDTECH y descubre en qué etapa se encuentra cada una.',[('Aplicaciones','aplicaciones/')]) + f'''<section class="section"><div class="container"><div class="app-grid">{app_card('box')}{''.join(app_card(key) for key in CATALOG)}</div>
-      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» y «Mi Jornada - Extra» están disponibles en Google Play. «¿Cuándo lo hice?» y «TecniRuta» están en prueba cerrada.</div>
+      <div class="status-info page-bottom"><strong>Nota de disponibilidad:</strong> «¿Dónde Quedó?» y «Mi Jornada - Extra» están disponibles en Google Play. «¿Cuándo lo hice?», «TecniRuta» y «Mi Auto al Día» están en prueba cerrada.</div>
     </div></section>'''
 
 
@@ -181,7 +185,7 @@ def support():
     faqs = [
       ('¿Puedo descargar «¿Dónde Quedó?»?', 'Sí. Visita <a href="https://play.google.com/store/apps/details?id=com.freddtech.dondequedo">la ficha de ¿Dónde Quedó? en Google Play</a> para descargarla y consultar la disponibilidad en tu dispositivo o región.'),
       ('¿Puedo descargar Mi Jornada - Extra?', 'Sí. Visita <a href="https://play.google.com/store/apps/details?id=com.freddtech.mijornada">Mi Jornada - Extra en Google Play</a> para descargarla y consultar la disponibilidad en tu dispositivo.'),
-      ('¿Puedo acceder a las apps en prueba cerrada?', '¿Cuándo lo hice? y TecniRuta están en prueba cerrada. Su acceso está limitado a participantes autorizados. Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> para consultar.'),
+      ('¿Puedo acceder a las apps en prueba cerrada?', '¿Cuándo lo hice?, TecniRuta y Mi Auto al Día están en prueba cerrada. Su acceso está limitado a participantes autorizados. Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> para consultar.'),
       ('¿Cómo solicito una nueva función?', 'Envía tu propuesta a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica a qué aplicación corresponde.'),
       ('¿Cómo puedo reportar un error?', 'Escribe a <a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a> e indica la aplicación, el problema, el modelo de dispositivo y los pasos para reproducirlo. No envíes contraseñas ni información sensible.'),
       ('¿Dónde encuentro la política de privacidad?', 'La sección Privacidad incluye un apartado independiente para cada aplicación. Enlazaremos allí los documentos oficiales una vez confirmados.'),
@@ -235,8 +239,9 @@ def privacy_app(which):
 def news():
     return section_hero('Novedades','Ideas que avanzan.<br><span class="text-blue">Apps que evolucionan.</span>','Un espacio para comunicar futuros lanzamientos, mejoras y noticias reales de nuestras aplicaciones.',[('Novedades','novedades/')]) + f'''<section class="section"><div class="container"><div class="news-list">
        <article class="news-card"><span class="kicker">Sitio web · En preparación</span><h3>Un nuevo hogar para FREDDTECH</h3><p>Esta primera versión reúne nuestras aplicaciones, filosofía, soporte y secciones de documentación en una sola experiencia.</p></article>
-       <article class="news-card"><span class="kicker">Disponible en Google Play</span><h3>Mi Jornada - Extra</h3><p>Mi Jornada - Extra ya está disponible en Google Play. ¿Cuándo lo hice? y TecniRuta continúan en prueba cerrada.</p></article>
+       <article class="news-card"><span class="kicker">Disponible en Google Play</span><h3>Mi Jornada - Extra</h3><p>Mi Jornada - Extra ya está disponible en Google Play. ¿Cuándo lo hice?, TecniRuta y Mi Auto al Día continúan en prueba cerrada.</p></article>
        <article class="news-card"><span class="kicker">Aplicación · Disponible en Google Play</span><h3>¿Dónde Quedó?</h3><p>La app Android que ayuda a recordar dónde se guardaron los objetos ya está disponible en Google Play.</p></article>
+       <article class="news-card"><span class="kicker">Prueba cerrada</span><h3>Mi Auto al Día</h3><p>Una bitácora para autos y motos: mantenimientos, kilometraje y avisos. Ya se encuentra en prueba cerrada.</p></article>
        <article class="news-card"><span class="kicker">Próximas publicaciones</span><h3>Actualizaciones verificadas</h3><p>Publicaremos fechas y enlaces solo cuando existan anuncios oficiales confirmados. No se muestran cifras de usuarios ni estadísticas inventadas.</p></article>
       </div></div></section>'''
 
@@ -286,7 +291,7 @@ def render_page(slug, title, description, body, active=''):
     <a class="brand" href="{root}" aria-label="FREDDTECH, volver al inicio"><img class="brand-symbol" src="{root}assets/img/freddtech-symbol.svg?v=curva-1" width="44" height="44" alt=""><span class="brand-label">FREDD<span class="brand-highlight">TECH</span><span class="brand-caption">Pequeñas apps. Grandes soluciones.</span></span></a>
     <p class="footer-about">Pequeñas apps. Grandes soluciones. Tecnología práctica para resolver problemas reales de la vida cotidiana.</p></div>
     <div class="footer-col"><h3>Explora</h3><a href="{root}aplicaciones/">Aplicaciones</a><a href="{root}nosotros/">Sobre FREDDTECH</a><a href="{root}novedades/">Novedades</a></div>
-    <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuando-lo-hice/">¿Cuándo lo hice?</a><a href="{root}aplicaciones/mi-jornada/">Mi jornada - extra</a><a href="{root}aplicaciones/tecniruta/">TecniRuta</a></div>
+    <div class="footer-col"><h3>Ayuda</h3><a href="mailto:freddtech26@gmail.com">freddtech26@gmail.com</a><a href="{root}soporte/">Centro de soporte</a><a href="{root}aplicaciones/donde-quedo/">¿Dónde Quedó?</a><a href="{root}aplicaciones/cuando-lo-hice/">¿Cuándo lo hice?</a><a href="{root}aplicaciones/mi-jornada/">Mi jornada - extra</a><a href="{root}aplicaciones/tecniruta/">TecniRuta</a><a href="{root}aplicaciones/mi-auto-al-dia/">Mi Auto al Día</a></div>
     <div class="footer-col"><h3>Legal</h3><a href="{root}#opciones-privacidad">Opciones de privacidad</a><a href="{root}privacidad/web/">Privacidad y cookies de la web</a><a href="{root}privacidad/">Privacidad</a><a href="{root}terminos/">Términos de uso</a></div>
   </div><div class="footer-bottom"><span>© <span data-year>2026</span> FREDDTECH. Pequeñas apps. Grandes soluciones.</span>
   <span>Hecho para simplificar lo cotidiano.</span></div></div></footer>
